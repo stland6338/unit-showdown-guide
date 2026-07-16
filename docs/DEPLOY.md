@@ -7,8 +7,10 @@
 - Pages: https://unit-showdown-guide.pages.dev/
 - Worker: https://showdown-live.stland6338.workers.dev/
 - KV: `SHOWDOWN_LIVE_KV` を Worker の `LIVE_KV` として設定済み
+- Google Cloud: `unit-showdown-guide-2026`（YouTube Data API v3限定キー `showdown-live-worker-v2`）
+- Worker secret: `YOUTUBE_API_KEY` 設定済み（キー値はローカル・Git・文書へ保存しない）
 - GitHub: https://github.com/stland6338/unit-showdown-guide
-- 未完了: `YOUTUBE_API_KEY` secret、GitHub Actions 用 `CLOUDFLARE_API_TOKEN`、実LIVE判定
+- 未完了: GitHub Actions 用 `CLOUDFLARE_API_TOKEN`、実LIVE判定
 
 ## 事前確認
 
