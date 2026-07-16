@@ -28,7 +28,8 @@
 - [x] Cloudflare Pages 初回デプロイ、本番URL確認
 - [ ] SPEC.md §5 の受け入れ条件 6項目をすべて確認
 
-> 2026-07-16: KV・Worker・Pages・GitHub リポジトリ・YouTube API専用キーの作成と初回公開まで完了。GitHub Actions 用 `CLOUDFLARE_API_TOKEN` と実LIVE判定テストが残っている。
+> 2026-07-16: KV・Worker・Pages・GitHub リポジトリ・YouTube API専用キーの作成と初回公開まで完了。
+> 2026-07-16 追記: `CLOUDFLARE_API_TOKEN`（Cloudflareダッシュボードで `unit-showdown-ci` トークンを新規発行、Cloudflare Pages:編集 権限）を GitHub secret に設定し、workflow_dispatch でデプロイ成功を確認済み（run 29486523509）。残りは実LIVE判定テストのみ。
 
 ## Phase 5: 運用（イベント中）
 - [ ] 配信枠URLが立ち次第 `videoId` を追記（直リンク化）
@@ -38,5 +39,5 @@
 
 ## 人間（とらんど）の承認が必要なもの
 - [x] `YOUTUBE_API_KEY` の安全な作成・Worker secret設定
-- [ ] GitHub Actions 用 `CLOUDFLARE_API_TOKEN` の安全な入力
+- [x] GitHub Actions 用 `CLOUDFLARE_API_TOKEN` の安全な入力（2026-07-16 完了、専用トークン unit-showdown-ci）
 - [ ] `endfield-facts.json` の `verified: false` → `true` 昇格の最終確認
