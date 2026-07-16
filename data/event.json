@@ -1,0 +1,25 @@
+{
+  "$comment": "企画の基本情報。全項目 2026-07-16 に公式ツイート本文から確認済み。",
+  "event": {
+    "name": "エンドフィールド×にじさんじ UNIT SHOWDOWN",
+    "hashtags": ["#にじユニショーダウン", "#エンドフィールド"],
+    "isPr": true,
+    "occasion": "『アークナイツ：エンドフィールド』ハーフアニバーサリー記念",
+    "mainMatch": {
+      "datetime": "2026-07-28T21:00:00+09:00",
+      "format": "チーム対抗大会（配信）",
+      "prize": "優勝チームに豪華賞品",
+      "teams": null,
+      "teamsNote": "チーム編成は未発表（2026-07-16時点）。発表後にここへ追記する"
+    },
+    "practicePeriod": { "start": "2026-07-18", "end": "2026-07-27", "liverCount": 14 },
+    "substitution": "ルンルンは休養中のため、栞葉るりが各種施策に代理出演",
+    "gameDownloadUrl": "https://akendfield.gryphline.com/",
+    "sources": [
+      { "label": "開催告知", "url": "https://x.com/nijisanji_app/status/2077574089435406620", "checkedAt": "2026-07-16" },
+      { "label": "練習配信スケジュール", "url": "https://x.com/nijisanji_app/status/2077574182112837889", "checkedAt": "2026-07-16" }
+    ],
+    "source": "official",
+    "verified": true
+  }
+}

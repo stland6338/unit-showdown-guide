@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>にじユニショーダウン 非公式観戦ガイド — デザインカンプ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   にじユニショーダウン — Design Tokens
+   コンセプト: 「作戦司令室 (OPERATION HUD)」
+   エンドフィールドの産業系UI × にじさんじの祝祭感を、
+   シグナルイエロー×カーボンブラックの二色支配で再解釈。
+   公式素材は一切使わず、モチーフ（ハザードストライプ・
+   スタンプ・計器類）のみで世界観を想起させる。
+   ============================================================ */
+:root {
+  --carbon: #101114;          /* 地色: カーボンブラック */
+  --carbon-2: #17181d;        /* パネル面 */
+  --carbon-3: #1f2127;        /* 浮き面 */
+  --signal: #F2E900;          /* 主役: シグナルイエロー */
+  --signal-dim: #b8b100;
+  --chalk: #ECEDE8;           /* 本文: チョークホワイト */
+  --muted: #8a8d94;
+  --live: #FF4655;            /* LIVE: エマージェンシーレッド */
+  --line: #2c2e35;            /* 罫線 */
+  --font-display: "Chakra Petch", sans-serif;
+  --font-body: "Zen Kaku Gothic New", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--carbon);
+  color: var(--chalk);
+  font-family: var(--font-body);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+/* 全面ノイズ＋ブループリント方眼 */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+.grid-bg {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+/* ハザードストライプ（区切りの主役） */
+.hazard {
+  height: 14px;
+  background: repeating-linear-gradient(-45deg,
+    var(--signal) 0 18px, var(--carbon) 18px 36px);
+}
+.hazard--thin { height: 6px; opacity: .9; }
+
+/* ---- 非公式バナー（常時表示・絶対条件） ---- */
+.unofficial {
+  background: var(--signal); color: var(--carbon);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  text-align: center; padding: 6px 12px; letter-spacing: .12em;
+}
+
+/* ---- ヘッダー ---- */
+header.site {
+  position: sticky; top: 0; z-index: 100;
+  background: color-mix(in srgb, var(--carbon) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.site-inner { display: flex; align-items: center; gap: 24px; padding: 14px 0; }
+.logo { font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: .04em; color: var(--signal); text-decoration: none; }
+.logo small { display: block; font-family: var(--font-mono); font-size: 9px; color: var(--muted); letter-spacing: .3em; font-weight: 400; }
+nav.gnav { margin-left: auto; display: flex; gap: 4px; }
+nav.gnav a {
+  font-family: var(--font-mono); font-size: 12px; color: var(--chalk);
+  text-decoration: none; padding: 8px 14px; border: 1px solid transparent;
+  transition: all .2s;
+}
+nav.gnav a:hover { border-color: var(--signal); color: var(--signal); }
+
+/* ---- Hero ---- */
+.hero { position: relative; padding: 72px 0 64px; overflow: hidden; }
+.hero .wrap { position: relative; z-index: 2; }
+/* 背景の巨大回転バッジ（幾何モチーフ） */
+.hero-gear {
+  position: absolute; right: -160px; top: -120px; width: 560px; height: 560px;
+  opacity: .08; animation: spin 90s linear infinite; z-index: 1;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .2em;
+  color: var(--signal); border: 1px solid var(--signal-dim);
+  padding: 6px 14px; margin-bottom: 24px;
+}
+.kicker::before { content: "▶"; font-size: 8px; }
+h1.title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(44px, 8vw, 96px); line-height: .95;
+  letter-spacing: .01em; text-transform: uppercase;
+}
+h1 .stroke {
+  display: block; color: transparent;
+  -webkit-text-stroke: 2px var(--chalk);
+}
+h1 .fill {
+  display: block; color: var(--signal);
+  text-shadow: 6px 6px 0 rgba(242,233,0,.15);
+}
+.title-ja {
+  font-size: clamp(15px, 2.4vw, 22px); font-weight: 900;
+  margin-top: 18px; letter-spacing: .06em;
+}
+.title-ja em { font-style: normal; background: var(--signal); color: var(--carbon); padding: 2px 8px; }
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.hero-meta span { border: 1px solid var(--line); background: var(--carbon-2); padding: 8px 14px; }
+.hero-meta b { color: var(--signal); font-weight: 600; }
+
+/* カウントダウン計器 */
+.countdown {
+  margin-top: 44px; display: inline-block;
+  border: 1px solid var(--signal-dim); background: var(--carbon-2);
+  position: relative; padding: 22px 32px 18px;
+}
+/* HUDコーナーブラケット */
+.corner::before, .corner::after,
+.corner .c3::before, .corner .c3::after {
+  content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid var(--signal);
+}
+.corner::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.corner::after  { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+.corner .c3::before { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+.corner .c3::after  { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+.countdown .label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .3em; color: var(--muted); }
+.countdown .digits { display: flex; align-items: baseline; gap: 14px; margin-top: 6px; }
+.countdown .num { font-family: var(--font-display); font-size: clamp(36px, 5vw, 56px); font-weight: 700; color: var(--signal); font-variant-numeric: tabular-nums; }
+.countdown .unit { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-left: -8px; }
+
+/* ---- セクション見出し ---- */
+section { padding: 64px 0; border-top: 1px solid var(--line); }
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+.sec-no { font-family: var(--font-mono); font-size: 12px; color: var(--signal); letter-spacing: .2em; }
+.sec-title { font-family: var(--font-display); font-size: clamp(24px, 4vw, 36px); font-weight: 700; text-transform: uppercase; letter-spacing: .02em; }
+.sec-title-ja { font-size: 13px; color: var(--muted); font-weight: 500; margin-left: auto; }
+
+/* ---- NOW LIVE ---- */
+.live-board { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 720px) { .live-board { grid-template-columns: 1fr; } }
+.slot {
+  position: relative; border: 1px solid var(--line); background: var(--carbon-2);
+  padding: 24px; min-height: 170px;
+}
+.slot-tag {
+  position: absolute; top: -1px; left: -1px;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: .2em;
+  padding: 5px 12px;
+}
+.slot--live { border-color: var(--live); }
+.slot--live .slot-tag { background: var(--live); color: #fff; }
+.slot--live .slot-tag::before { content: "●"; margin-right: 6px; animation: blink 1.2s steps(2) infinite; }
+@keyframes blink { 50% { opacity: .2; } }
+@media (prefers-reduced-motion: reduce) {
+  .slot--live .slot-tag::before, .hero-gear { animation: none; }
+}
+.slot--next .slot-tag { background: var(--signal); color: var(--carbon); }
+.slot .liver { font-size: 22px; font-weight: 900; margin-top: 22px; }
+.slot .stream-title { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.slot .when { font-family: var(--font-mono); font-size: 13px; color: var(--signal); margin-top: 12px; }
+.slot .cta {
+  display: inline-block; margin-top: 14px; font-family: var(--font-mono); font-size: 12px;
+  color: var(--carbon); background: var(--chalk); text-decoration: none;
+  padding: 8px 18px; font-weight: 600; transition: all .15s;
+}
+.slot .cta:hover { background: var(--signal); transform: translate(-2px,-2px); box-shadow: 3px 3px 0 var(--signal-dim); }
+.sample-note { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 10px; }
+
+/* ---- スケジュール（縦タイムライン） ---- */
+.tl { border-left: 2px solid var(--line); margin-left: 8px; }
+.tl-day { padding: 8px 0 8px 28px; position: relative; }
+.tl-day + .tl-day { margin-top: 20px; }
+.tl-date {
+  font-family: var(--font-display); font-weight: 700; font-size: 20px; color: var(--signal);
+  display: flex; align-items: center; gap: 10px;
+}
+.tl-date::before {
+  content: ""; position: absolute; left: -7px; width: 12px; height: 12px;
+  background: var(--signal); transform: rotate(45deg);
+}
+.tl-date .dow { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.tl-items { margin-top: 10px; display: grid; gap: 8px; }
+.tl-item {
+  display: flex; align-items: center; gap: 16px;
+  background: var(--carbon-2); border: 1px solid var(--line);
+  padding: 12px 18px; transition: border-color .2s, transform .2s;
+}
+.tl-item:hover { border-color: var(--signal); transform: translateX(4px); }
+.tl-time { font-family: var(--font-mono); font-size: 14px; color: var(--signal); font-variant-numeric: tabular-nums; min-width: 64px; }
+.tl-name { font-weight: 700; font-size: 16px; }
+.tl-arrow { margin-left: auto; font-family: var(--font-mono); color: var(--muted); font-size: 12px; }
+.more-link {
+  display: inline-block; margin-top: 28px; font-family: var(--font-mono); font-size: 13px;
+  color: var(--signal); text-decoration: none; border-bottom: 1px dashed var(--signal-dim);
+}
+
+/* ---- 本戦パネル ---- */
+.main-match {
+  position: relative; border: 2px solid var(--signal); background: var(--carbon-2);
+  padding: 40px 36px; overflow: hidden;
+}
+.main-match::before {
+  content: "MAIN MATCH"; position: absolute; right: -30px; bottom: -34px;
+  font-family: var(--font-display); font-weight: 700; font-size: 110px;
+  color: transparent; -webkit-text-stroke: 1px var(--line); letter-spacing: .02em;
+  pointer-events: none; white-space: nowrap;
+}
+.mm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 1; }
+@media (max-width: 720px) { .mm-grid { grid-template-columns: 1fr; } }
+.mm-cell .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: .25em; color: var(--muted); }
+.mm-cell .v { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--signal); margin-top: 6px; }
+.mm-cell .v small { font-size: 13px; color: var(--chalk); font-family: var(--font-body); font-weight: 500; }
+.coming {
+  margin-top: 28px; border: 1px dashed var(--line); padding: 18px 22px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+  position: relative; z-index: 1;
+}
+.coming b { color: var(--signal); }
+
+/* ---- エンドフィールドとは ---- */
+.about-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: start; }
+@media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; } }
+.about p { margin-bottom: 1em; }
+.about .lead { font-size: 17px; font-weight: 700; }
+.spec-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.spec-table th, .spec-table td { border: 1px solid var(--line); padding: 10px 14px; text-align: left; }
+.spec-table th { font-family: var(--font-mono); font-size: 11px; color: var(--muted); font-weight: 400; letter-spacing: .1em; width: 38%; background: var(--carbon-2); }
+
+/* ---- フッター ---- */
+footer.site {
+  border-top: 1px solid var(--line); padding: 40px 0 56px;
+  font-size: 12px; color: var(--muted);
+}
+footer .disclaimer { max-width: 640px; }
+footer .stamp {
+  float: right; font-family: var(--font-mono); font-size: 10px; color: var(--signal-dim);
+  border: 1px solid var(--signal-dim); padding: 10px 14px; transform: rotate(-3deg);
+  letter-spacing: .2em;
+}
+@media (max-width: 720px) { footer .stamp { float: none; display: inline-block; margin-bottom: 20px; } }
+
+/* ロード時ステージング */
+.hero .kicker, .hero h1, .hero .title-ja, .hero .hero-meta, .hero .countdown {
+  animation: rise .7s cubic-bezier(.2,.8,.2,1) both;
+}
+.hero h1 { animation-delay: .08s; }
+.hero .title-ja { animation-delay: .16s; }
+.hero .hero-meta { animation-delay: .24s; }
+.hero .countdown { animation-delay: .32s; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+@media (prefers-reduced-motion: reduce) { .hero * { animation: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="unofficial">UNOFFICIAL FAN GUIDE — 当サイトは非公式のファンサイトです。ANYCOLOR社・GRYPHLINE社とは一切関係ありません</div>
+
+<header class="site">
+  <div class="wrap site-inner">
+    <a class="logo" href="#">UNIT SHOWDOWN<small>UNOFFICIAL FAN GUIDE</small></a>
+    <nav class="gnav">
+      <a href="#schedule">SCHEDULE</a>
+      <a href="#main">MAIN MATCH</a>
+      <a href="#endfield">ENDFIELD?</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hazard"></div>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero grid-bg">
+  <svg class="hero-gear" viewBox="0 0 100 100" fill="none" stroke="#F2E900" stroke-width=".6">
+    <circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="34"/><circle cx="50" cy="50" r="12"/>
+    <path d="M50 4v14M50 82v14M4 50h14M82 50h14M17 17l10 10M73 73l10 10M83 17 73 27M27 73 17 83"/>
+    <path d="M50 24l22 13v26L50 76 28 63V37z"/>
+  </svg>
+  <div class="wrap">
+    <span class="kicker">NIJISANJI × ARKNIGHTS: ENDFIELD — HALF ANNIVERSARY #PR</span>
+    <h1 class="title">
+      <span class="stroke">Unit</span>
+      <span class="fill">Showdown</span>
+    </h1>
+    <p class="title-ja">にじさんじライバー14名による <em>チーム対抗大会</em> 非公式観戦ガイド</p>
+    <div class="hero-meta">
+      <span>本戦 <b>7/28 (火) 21:00</b> JST</span>
+      <span>練習配信 <b>7/18 – 7/27</b></span>
+      <span>参加 <b>14</b> LIVERS</span>
+    </div>
+    <div class="countdown corner">
+      <span class="c3"></span>
+      <div class="label">MAIN MATCH IN — 本戦まで</div>
+      <div class="digits" id="cd">
+        <span class="num">12</span><span class="unit">DAYS</span>
+        <span class="num">10</span><span class="unit">HRS</span>
+        <span class="num">00</span><span class="unit">MIN</span>
+        <span class="num">00</span><span class="unit">SEC</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hazard hazard--thin"></div>
+
+<!-- ==================== NOW LIVE ==================== -->
+<section id="live">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">SEC.01</span>
+      <h2 class="sec-title">Now Live / Next Up</h2>
+      <span class="sec-title-ja">いまやってる配信・次の配信</span>
+    </div>
+    <div class="live-board">
+      <div class="slot slot--live corner"><span class="c3"></span>
+        <span class="slot-tag">ON AIR</span>
+        <div class="liver">栞葉るり</div>
+        <div class="stream-title">【アークナイツ：エンドフィールド】練習配信（※デザイン確認用のサンプル表示）</div>
+        <div class="when">7/19 (日) 21:00 – LIVE</div>
+        <a class="cta" href="#">▶ 視聴する</a>
+      </div>
+      <div class="slot slot--next corner"><span class="c3"></span>
+        <span class="slot-tag">NEXT UP</span>
+        <div class="liver">獅子堂あかり</div>
+        <div class="stream-title">練習配信</div>
+        <div class="when">7/19 (日) 23:00 START</div>
+        <a class="cta" href="#">チャンネルへ</a>
+      </div>
+    </div>
+    <p class="sample-note">// 実装時: Cloudflare Worker /api/live を5分間隔でポーリング。配信なしの時間帯は「次の配信」のみ表示</p>
+  </div>
+</section>
+
+<!-- ==================== SCHEDULE ==================== -->
+<section id="schedule">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">SEC.02</span>
+      <h2 class="sec-title">Practice Schedule</h2>
+      <span class="sec-title-ja">練習配信スケジュール（抜粋）</span>
+    </div>
+    <div class="tl">
+      <div class="tl-day">
+        <div class="tl-date">07.18 <span class="dow">SAT</span></div>
+        <div class="tl-items">
+          <a class="tl-item" href="#"><span class="tl-time">19:00</span><span class="tl-name">白砂あやね</span><span class="tl-arrow">CH →</span></a>
+          <a class="tl-item" href="#"><span class="tl-time">21:00</span><span class="tl-name">珠乃井ナナ</span><span class="tl-arrow">CH →</span></a>
+          <a class="tl-item" href="#"><span class="tl-time">23:00</span><span class="tl-name">小清水透</span><span class="tl-arrow">CH →</span></a>
+        </div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">07.19 <span class="dow">SUN</span></div>
+        <div class="tl-items">
+          <a class="tl-item" href="#"><span class="tl-time">19:00</span><span class="tl-name">水面まどか</span><span class="tl-arrow">CH →</span></a>
+          <a class="tl-item" href="#"><span class="tl-time">21:00</span><span class="tl-name">栞葉るり</span><span class="tl-arrow">CH →</span></a>
+          <a class="tl-item" href="#"><span class="tl-time">23:00</span><span class="tl-name">獅子堂あかり</span><span class="tl-arrow">CH →</span></a>
+        </div>
+      </div>
+      <div class="tl-day">
+        <div class="tl-date">07.20 <span class="dow">MON</span></div>
+        <div class="tl-items">
+          <a class="tl-item" href="#"><span class="tl-time">22:30</span><span class="tl-name">石神のぞみ</span><span class="tl-arrow">CH →</span></a>
+        </div>
+      </div>
+    </div>
+    <a class="more-link" href="#">全14配信 + 本戦のスケジュールを見る →</a>
+  </div>
+</section>
+
+<!-- ==================== MAIN MATCH ==================== -->
+<section id="main">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">SEC.03</span>
+      <h2 class="sec-title">Main Match</h2>
+      <span class="sec-title-ja">本戦情報</span>
+    </div>
+    <div class="main-match">
+      <div class="mm-grid">
+        <div class="mm-cell"><div class="k">DATE / START</div><div class="v">7.28 <small>(火) 21:00 JST</small></div></div>
+        <div class="mm-cell"><div class="k">FORMAT</div><div class="v">チーム対抗<small> 大会配信</small></div></div>
+        <div class="mm-cell"><div class="k">PRIZE</div><div class="v">豪華賞品<small> 優勝チームへ</small></div></div>
+      </div>
+      <div class="coming">
+        <b>TEAM ROSTER — 発表待ち。</b> チーム編成は公式発表され次第ここに掲載します（2026-07-16 時点未発表）。
+        ※ルンルンさんは休養中のため栞葉るりさんが代理出演（公式発表）
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ENDFIELD? ==================== -->
+<section id="endfield">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-no">SEC.04</span>
+      <h2 class="sec-title">What is Endfield?</h2>
+      <span class="sec-title-ja">アークナイツ：エンドフィールドとは</span>
+    </div>
+    <div class="about-grid">
+      <div class="about">
+        <p class="lead">『アークナイツ』と同一世界観の3Dリアルタイム戦略RPG。惑星タロIIを舞台に、探索・戦闘・基地建設が交差する。</p>
+        <p>2026年1月22日リリース。にじさんじではリリース時のPRリレー配信以来、多くのライバーがプレイ中。現在はコアバージョン武陵決戦篇「向淵行」が配信中で、ハーフアニバーサリーを記念して本企画が開催される。</p>
+        <a class="more-link" href="#">ゲーム紹介ページへ →</a>
+      </div>
+      <table class="spec-table">
+        <tr><th>GENRE</th><td>3Dリアルタイム戦略RPG</td></tr>
+        <tr><th>PLATFORM</th><td>PS5 / iOS / Android / PC</td></tr>
+        <tr><th>RELEASE</th><td>2026.01.22</td></tr>
+        <tr><th>PRICE</th><td>基本プレイ無料</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="hazard"></div>
+
+<footer class="site">
+  <div class="wrap">
+    <span class="stamp">UNOFFICIAL / FAN-MADE</span>
+    <p class="disclaimer">
+      当サイトはファンが運営する非公式の観戦ガイドです。ANYCOLOR株式会社、GRYPHLINE、Hypergryphとは一切関係ありません。
+      「にじさんじ」は ANYCOLOR株式会社の、『アークナイツ：エンドフィールド』は GRYPHLINE の商標または登録商標です。
+      掲載情報は公式X（@nijisanji_app / @AKEndfieldJP）の発表に基づきます。誤りを見つけた場合はお問い合わせください。
+    </p>
+  </div>
+</footer>
+
+<script>
+// カウントダウン（本戦 2026-07-28 21:00 JST）— 実装時は React クライアントコンポーネント化
+const target = new Date("2026-07-28T21:00:00+09:00").getTime();
+const cd = document.getElementById("cd");
+function tick() {
+  let d = Math.max(0, target - Date.now());
+  const day = Math.floor(d / 864e5); d -= day * 864e5;
+  const hr = Math.floor(d / 36e5); d -= hr * 36e5;
+  const min = Math.floor(d / 6e4); d -= min * 6e4;
+  const sec = Math.floor(d / 1e3);
+  cd.querySelectorAll(".num").forEach((el, i) =>
+    el.textContent = String([day, hr, min, sec][i]).padStart(2, "0"));
+}
+tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>

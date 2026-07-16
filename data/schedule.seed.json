@@ -1,0 +1,20 @@
+{
+  "$comment": "日時・氏名は公式スケジュール画像（x.com/nijisanji_app/status/2077574182112837889）から2026-07-16に目視確認済み。channelId/channelUrl は実装時に収集（TODO.md参照）。時刻はすべてJST。",
+  "streams": [
+    { "id": "practice-shirasuna-ayane", "liverName": "白砂あやね", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-18T19:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-tamanoi-nana", "liverName": "珠乃井ナナ", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-18T21:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-koshimizu-toru", "liverName": "小清水透", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-18T23:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-minamo-madoka", "liverName": "水面まどか", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-19T19:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-shioriha-ruri", "liverName": "栞葉るり", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-19T21:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-shishido-akari", "liverName": "獅子堂あかり", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-19T23:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-ishigami-nozomi", "liverName": "石神のぞみ", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-20T22:30:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-kozue-mone", "liverName": "梢桃音", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-21T22:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-igarashi-rika", "liverName": "五十嵐梨花", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-22T22:30:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-sophia-valentine", "liverName": "ソフィア・ヴァレンタイン", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-23T23:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-kaburaki-roco", "liverName": "鏑木ろこ", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-24T22:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-kisara", "liverName": "綺沙良", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-25T22:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-kuramochi-meruto", "liverName": "倉持めると", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-26T22:30:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "practice-shiga-riko", "liverName": "司賀りこ", "channelId": null, "channelUrl": null, "videoId": null, "kind": "practice", "scheduledStartTime": "2026-07-27T22:30:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true },
+    { "id": "main-showdown", "liverName": "にじさんじ UNIT SHOWDOWN 本戦", "channelId": null, "channelUrl": null, "videoId": null, "kind": "main", "scheduledStartTime": "2026-07-28T21:00:00+09:00", "liveStatus": "upcoming", "source": "official", "verified": true }
+  ]
+}
