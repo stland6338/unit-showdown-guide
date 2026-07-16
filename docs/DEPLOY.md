@@ -2,6 +2,14 @@
 
 この文書のコマンドは、Cloudflare KV 作成・secret 投入・外部デプロイを含みます。`AGENTS.md` の安全基準に従い、**Codex は人間の明示承認を受けるまで実行しません**。
 
+## 現在の公開状態（2026-07-16）
+
+- Pages: https://unit-showdown-guide.pages.dev/
+- Worker: https://showdown-live.stland6338.workers.dev/
+- KV: `SHOWDOWN_LIVE_KV` を Worker の `LIVE_KV` として設定済み
+- GitHub: https://github.com/stland6338/unit-showdown-guide
+- 未完了: `YOUTUBE_API_KEY` secret、GitHub Actions 用 `CLOUDFLARE_API_TOKEN`、実LIVE判定
+
 ## 事前確認
 
 ```bash
@@ -16,13 +24,13 @@ npm run build
 
 ## 1. ライブ検知 Worker
 
-1. KV namespace を作成します。
+1. 新しい環境へ移行する場合だけ KV namespace を作成します。現在の本番環境では作成済みです。
 
    ```bash
-   npx wrangler kv namespace create LIVE_KV -c wrangler-live.toml
+   npx wrangler kv namespace create SHOWDOWN_LIVE_KV -c wrangler-live.toml
    ```
 
-2. 出力された namespace ID を `wrangler-live.toml` の all-zero プレースホルダーと置き換えます。
+2. 出力された namespace ID を `wrangler-live.toml` の `LIVE_KV` に設定します。
 3. YouTube Data API キーを Worker secret として対話入力します。キーをファイル、シェル履歴、クライアント環境変数へ書きません。
 
    ```bash

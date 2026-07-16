@@ -18,16 +18,17 @@
 ## Phase 3: 配信検知
 - [x] 14名の channelId 収集 → `data/schedule.seed.json` 更新（AGENTS.md 調査タスク参照）
 - [x] `cloudflare/live-worker.js` をアルプススタンドから流用改変（SPEC.md §3 の差分表）
-- [ ] `wrangler-live.toml` 作成、KV `LIVE_KV` 新規作成、`YOUTUBE_API_KEY` secret 設定
+- [x] `wrangler-live.toml` 作成、専用KV `SHOWDOWN_LIVE_KV` を `LIVE_KV` として設定
+- [ ] `YOUTUBE_API_KEY` secret 設定
 - [x] `LiveSlots.tsx` ポーリング実装（5分 + visibilitychange、失敗時フォールバック）
-- [ ] Worker デプロイ → `src/lib/config.ts` の `liveApiUrl` に本番URLを設定
+- [x] Worker デプロイ → GitHub variable `NEXT_PUBLIC_LIVE_API_URL` に本番URLを設定
 
 ## Phase 4: 公開
-- [ ] GitHub リポジトリ作成、`daily-deploy.yml` 流用（project-name: unit-showdown-guide）
-- [ ] Cloudflare Pages 初回デプロイ、本番URL確認
+- [x] GitHub リポジトリ作成、`daily-deploy.yml` 流用（project-name: unit-showdown-guide）
+- [x] Cloudflare Pages 初回デプロイ、本番URL確認
 - [ ] SPEC.md §5 の受け入れ条件 6項目をすべて確認
 
-> `wrangler-live.toml` と `daily-deploy.yml` の実装は完了。上記は外部リソース作成・設定・本番確認を含むため、承認後に完了扱いとする。
+> 2026-07-16: KV・Worker・Pages・GitHub リポジトリの作成と初回公開まで完了。`YOUTUBE_API_KEY` と GitHub Actions 用 `CLOUDFLARE_API_TOKEN` の安全な入力、および実LIVE判定テストが残っている。
 
 ## Phase 5: 運用（イベント中）
 - [ ] 配信枠URLが立ち次第 `videoId` を追記（直リンク化）
@@ -36,5 +37,5 @@
 - [ ] 7/29 以降: Cron 停止、アーカイブ静的化
 
 ## 人間（とらんど）の承認が必要なもの
-- [ ] Cloudflare アカウントでの KV 作成・secret 投入・初回デプロイ（費用は無料枠内の想定）
+- [ ] `YOUTUBE_API_KEY` と GitHub Actions 用 `CLOUDFLARE_API_TOKEN` の安全な入力
 - [ ] `endfield-facts.json` の `verified: false` → `true` 昇格の最終確認

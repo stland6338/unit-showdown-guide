@@ -3,6 +3,9 @@
 「エンドフィールド×にじさんじ UNIT SHOWDOWN」（#にじユニショーダウン）の**非公式**観戦ガイドサイト。
 アルプススタンド2026（`../アルプススタンド2026/`）の実証済みアーキテクチャを踏襲する。
 
+- 公開URL: https://unit-showdown-guide.pages.dev/
+- ライブ検知API: https://showdown-live.stland6338.workers.dev/api/live
+
 ## 企画概要（公式発表・2026-07-16確認済み）
 
 - **企画名**: エンドフィールド×にじさんじ UNIT SHOWDOWN（#PR施策）
