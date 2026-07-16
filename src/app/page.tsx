@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Avatar } from "@/components/Avatar";
 import { Countdown } from "@/components/Countdown";
 import { LiveSlots } from "@/components/LiveSlots";
+import { TweetEmbed } from "@/components/TweetEmbed";
 import { Hazard, SectionHeading } from "@/components/SiteChrome";
 import { config } from "@/lib/config";
 import { getEvent, getFact, getStreams } from "@/lib/data";
@@ -66,6 +68,7 @@ export default function HomePage() {
                     {group.items.map((stream) => (
                       <a className="tl-item" href={streamHref(stream)} target="_blank" rel="noopener noreferrer" key={stream.id}>
                         <span className="tl-time">{formatTimeJst(stream.scheduledStartTime)}</span>
+                        <Avatar src={stream.channelIcon} size={32} />
                         <span className="tl-name">{stream.liverName}</span>
                         <span className="tl-arrow">CH →</span>
                       </a>
@@ -95,9 +98,21 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section id="source">
+        <div className="wrap">
+          <SectionHeading number="SEC.04" title="Official Source" japanese="公式発表（X公式埋め込み）" />
+          <div className="x-embed-grid">
+            {event.sources.map((source) => (
+              <TweetEmbed key={source.url} url={source.url} label={source.label} />
+            ))}
+          </div>
+          <p className="sample-note">{"// 本サイトの掲載情報はすべて上記の公式発表に基づきます"}</p>
+        </div>
+      </section>
+
       <section id="endfield">
         <div className="wrap">
-          <SectionHeading number="SEC.04" title="What is Endfield?" japanese="アークナイツ：エンドフィールドとは" />
+          <SectionHeading number="SEC.05" title="What is Endfield?" japanese="アークナイツ：エンドフィールドとは" />
           <div className="about-grid">
             <div className="about">
               <p className="lead">{genre?.value}。2026年1月22日に配信開始されたタイトルです。</p>

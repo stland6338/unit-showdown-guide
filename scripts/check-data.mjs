@@ -41,6 +41,8 @@ for (const stream of streams) {
   if (Number.isNaN(Date.parse(stream.scheduledStartTime))) errors.push(`${at}: 日時を解釈できない`);
   if (stream.videoId !== null && !VIDEO_ID.test(stream.videoId))
     errors.push(`${at}: videoId 形式不正 ${stream.videoId}`);
+  if (stream.channelIcon != null && !/^https:\/\/yt3\.(googleusercontent|ggpht)\.com\//.test(stream.channelIcon))
+    errors.push(`${at}: channelIcon はYouTube配信のアイコンURL (yt3.*) にする`);
   if (stream.kind === "practice") {
     if (!CHANNEL_ID.test(stream.channelId ?? "")) errors.push(`${at}: channelId 形式不正 ${stream.channelId}`);
     if (channelIds.has(stream.channelId)) errors.push(`${at}: channelId 重複 ${stream.channelId}`);

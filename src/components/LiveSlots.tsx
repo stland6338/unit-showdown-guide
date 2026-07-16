@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Avatar } from "./Avatar";
 import { formatDateTimeJst, streamHref } from "@/lib/format";
 import type { LiveItem, LivePayload, ShowdownStream } from "@/lib/types";
 
@@ -55,6 +56,7 @@ function dynamicToStream(item: LiveItem, staticStreams: ShowdownStream[]): Showd
     liverName: seed?.liverName ?? item.liverName,
     channelId: item.channelId,
     channelUrl: seed?.channelUrl ?? `https://www.youtube.com/channel/${item.channelId}`,
+    channelIcon: seed?.channelIcon ?? null,
     videoId: item.videoId,
     kind: seed?.kind ?? "practice",
     scheduledStartTime: item.actualStartTime ?? item.scheduledStartTime ?? seed?.scheduledStartTime ?? new Date().toISOString(),
@@ -75,7 +77,10 @@ function StreamSlot({ stream, title, live }: { stream: ShowdownStream; title?: s
           <img src={`https://i.ytimg.com/vi/${stream.videoId}/hqdefault.jpg`} alt={`${stream.liverName}のYouTube配信サムネイル`} loading="lazy" referrerPolicy="no-referrer" />
         </a>
       )}
-      <div className="liver">{stream.liverName}</div>
+      <a className="slot-head" href={stream.channelUrl ?? href} target="_blank" rel="noopener noreferrer">
+        <Avatar src={stream.channelIcon} size={44} />
+        <span className="liver">{stream.liverName}</span>
+      </a>
       <div className="stream-title">{title ?? (stream.kind === "main" ? "UNIT SHOWDOWN 本戦" : "練習配信")}</div>
       <div className="when">
         {formatDateTimeJst(stream.scheduledStartTime)} JST {live ? "– LIVE" : "START"}

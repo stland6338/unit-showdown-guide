@@ -6,6 +6,8 @@ export interface ShowdownStream {
   liverName: string;
   channelId: string | null;
   channelUrl: string | null;
+  /** YouTubeチャンネルアイコンURL。チャンネルリンクの一部としてのみ表示する（README 絶対条件参照） */
+  channelIcon?: string | null;
   videoId: string | null;
   kind: "practice" | "main";
   scheduledStartTime: string;

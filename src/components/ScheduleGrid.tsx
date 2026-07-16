@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar } from "./Avatar";
 import { useLivePayload } from "./LiveSlots";
 import { formatDateTimeJst, streamHref } from "@/lib/format";
 import type { LiveItem, RecentArchiveItem, ShowdownStream } from "@/lib/types";
@@ -51,7 +52,10 @@ export function ScheduleGrid({ endpoint, streams }: { endpoint: string; streams:
               </a>
             )}
             <p className="stream-kind">{stream.kind === "main" ? "MAIN MATCH" : "PRACTICE STREAM"}</p>
-            <h2>{stream.liverName}</h2>
+            <a className="stream-head" href={stream.channelUrl ?? href} target="_blank" rel="noopener noreferrer">
+              <Avatar src={stream.channelIcon} size={40} />
+              <h2>{stream.liverName}</h2>
+            </a>
             <p className="stream-card-title">{stream.title ?? (stream.kind === "main" ? "UNIT SHOWDOWN 本戦" : "練習配信")}</p>
             <time dateTime={stream.scheduledStartTime}>{formatDateTimeJst(stream.scheduledStartTime)} JST</time>
             <a className="card-link" href={href} target="_blank" rel="noopener noreferrer">
