@@ -39,11 +39,13 @@ export const metadata: Metadata = {
     title: "にじユニショーダウン 非公式観戦ガイド",
     description: "14名の練習配信と7月28日の本戦を追える、非公式の観戦ガイド。",
     url: config.siteUrl,
+    ...(config.ogImageUrl ? { images: [{ url: config.ogImageUrl, width: 1200, height: 630 }] } : {}),
   },
   twitter: {
-    card: "summary",
+    card: config.ogImageUrl ? "summary_large_image" : "summary",
     title: "にじユニショーダウン 非公式観戦ガイド",
     description: "14名の練習配信と7月28日の本戦を追える、非公式の観戦ガイド。",
+    ...(config.ogImageUrl ? { images: [config.ogImageUrl] } : {}),
   },
 };
 

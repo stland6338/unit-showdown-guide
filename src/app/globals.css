@@ -589,6 +589,35 @@ section {
   border-color: var(--signal);
 }
 
+/* X共有ボタン */
+.hero-actions {
+  display: flex;
+  margin-top: 20px;
+}
+
+.share-x {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border: 2px solid var(--signal);
+  background: transparent;
+  color: var(--signal);
+  font-family: var(--font-mono), monospace;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.share-x:hover {
+  transform: translate(-2px, -2px);
+  background: var(--signal);
+  color: var(--carbon);
+  box-shadow: 3px 3px 0 var(--signal-dim);
+}
+
 /* X公式埋め込み */
 .x-embed-grid {
   display: grid;

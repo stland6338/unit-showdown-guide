@@ -25,6 +25,8 @@ const CHANNELS = [
   { channelId: "UCX7YkU9nEeaoZbkVLVajcMg", streamId: "main-showdown", liverName: "にじさんじ公式" },
 ];
 
+import { handleOg } from "./og.js";
+
 const KEYWORDS = ["エンドフィールド", "endfield", "ユニショーダウン", "unit showdown", "アークナイツ"];
 const ARCHIVE_WINDOW_MS = 48 * 60 * 60 * 1_000;
 
@@ -158,8 +160,16 @@ export default {
     );
   },
 
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    if (request.method === "GET" && url.pathname === "/og") {
+      try {
+        return await handleOg(request, env, ctx);
+      } catch (error) {
+        console.error("og render failed", error instanceof Error ? error.message : String(error));
+        return new Response("og unavailable", { status: 500 });
+      }
+    }
     if (request.method === "OPTIONS" && url.pathname === "/api/live") {
       return new Response(null, {
         status: 204,

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Avatar } from "@/components/Avatar";
 import { Countdown } from "@/components/Countdown";
 import { LiveSlots } from "@/components/LiveSlots";
+import { ShareButton } from "@/components/ShareButton";
 import { TweetEmbed } from "@/components/TweetEmbed";
 import { Hazard, SectionHeading } from "@/components/SiteChrome";
 import { config } from "@/lib/config";
@@ -43,6 +44,9 @@ export default function HomePage() {
             <span>参加 <b>14</b> LIVERS</span>
           </div>
           <Countdown />
+          <div className="hero-actions">
+            <ShareButton staticStreams={streams} />
+          </div>
         </div>
       </div>
 
