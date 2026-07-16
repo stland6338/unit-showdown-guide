@@ -1,0 +1,45 @@
+# push と毎朝6:00 JST に検証・ビルド・Cloudflare Pages デプロイを行う。
+# 必要な secrets: CLOUDFLARE_API_TOKEN（Pages:Edit）, CLOUDFLARE_ACCOUNT_ID
+name: daily-deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 21 * * *" # 21:00 UTC = 6:00 JST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validate data
+        run: npm run check:data
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_LIVE_API_URL: ${{ vars.NEXT_PUBLIC_LIVE_API_URL }}
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy out --project-name unit-showdown-guide --branch main

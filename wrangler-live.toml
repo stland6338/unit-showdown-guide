@@ -1,0 +1,14 @@
+# ライブ検知 Worker の設定
+# デプロイ:    npx wrangler deploy -c wrangler-live.toml
+# APIキー設定: npx wrangler secret put YOUTUBE_API_KEY -c wrangler-live.toml
+name = "showdown-live"
+main = "cloudflare/live-worker.js"
+compatibility_date = "2026-07-01"
+
+[triggers]
+crons = ["*/5 * * * *"]
+
+[[kv_namespaces]]
+binding = "LIVE_KV"
+# Cloudflare KV namespace: SHOWDOWN_LIVE_KV
+id = "9dd8f4c052334ccebbb5993d21ac7fd5"

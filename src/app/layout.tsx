@@ -1,0 +1,60 @@
+import type { Metadata } from "next";
+import { Chakra_Petch, IBM_Plex_Mono, Zen_Kaku_Gothic_New } from "next/font/google";
+import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { config } from "@/lib/config";
+import "./globals.css";
+
+const display = Chakra_Petch({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+const body = Zen_Kaku_Gothic_New({
+  subsets: ["latin"],
+  // 日本語フォントは多数のunicode-rangeへ分割されるため、400をセルフホストし太字はCSSで合成する。
+  weight: "400",
+  variable: "--font-body",
+  display: "swap",
+  preload: false,
+});
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(config.siteUrl),
+  title: {
+    default: "にじユニショーダウン 非公式観戦ガイド",
+    template: "%s | にじユニショーダウン 非公式観戦ガイド",
+  },
+  description: "エンドフィールド×にじさんじ UNIT SHOWDOWNの非公式観戦ガイド。練習配信スケジュールと本戦情報をまとめています。",
+  openGraph: {
+    type: "website",
+    locale: "ja_JP",
+    siteName: "にじユニショーダウン 非公式観戦ガイド",
+    title: "にじユニショーダウン 非公式観戦ガイド",
+    description: "14名の練習配信と7月28日の本戦を追える、非公式の観戦ガイド。",
+    url: config.siteUrl,
+  },
+  twitter: {
+    card: "summary",
+    title: "にじユニショーダウン 非公式観戦ガイド",
+    description: "14名の練習配信と7月28日の本戦を追える、非公式の観戦ガイド。",
+  },
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html lang="ja" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <body>
+        <SiteHeader />
+        <main>{children}</main>
+        <SiteFooter />
+      </body>
+    </html>
+  );
+}

@@ -30,6 +30,7 @@
 | [design/mockup.html](design/mockup.html) | トップページのデザインカンプ（静的HTML） | Codex |
 | [AGENTS.md](AGENTS.md) | Codex 向け実装ハンドオフ指示 | Codex |
 | [TODO.md](TODO.md) | 実装チェックリスト | Codex |
+| [docs/DEPLOY.md](docs/DEPLOY.md) | 承認後の Cloudflare / GitHub 公開手順 | 運用者 |
 | [data/event.json](data/event.json) | 企画データ（情報源ラベル付き） | 実装 |
 | [data/schedule.seed.json](data/schedule.seed.json) | 練習配信14件+本戦のシードデータ | 実装 |
 | [data/endfield-facts.json](data/endfield-facts.json) | ゲーム紹介ページの事実データ | 実装 |
@@ -51,3 +52,16 @@
 8. 広告掲載・収益化を一切行わない
 9. フッターに問い合わせ導線を設置し、「権利者からの要請があれば速やかに対応する」旨を明記する
    - 補足: エンドフィールド側ガイドラインは対象を「二次創作物の制作、展示、頒布および公開」と定義し、範囲を超える活動は事前問い合わせを求めている。情報まとめ型ファンサイトへの直接の言及はないため、要請即応体制を担保として運用する
+
+## ローカル実行
+
+```bash
+npm ci
+npm run dev
+npm run check:data
+npm run typecheck
+npm run lint
+npm run build
+```
+
+ライブ API 未設定時も静的スケジュールで動作します。Worker と Pages の外部設定は [docs/DEPLOY.md](docs/DEPLOY.md) を参照してください。

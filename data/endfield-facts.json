@@ -4,13 +4,16 @@
     { "key": "title", "label": "正式名称", "value": "アークナイツ：エンドフィールド（Arknights: Endfield）", "source": "official", "verified": true },
     { "key": "genre", "label": "ジャンル", "value": "3Dリアルタイム戦略RPG", "note": "公式Xアカウントの自己紹介文より", "source": "official", "verified": true },
     { "key": "publisher", "label": "開発・運営", "value": "GRYPHLINE（Hypergryphのグローバルパブリッシングレーベル）", "source": "wiki", "verified": false },
-    { "key": "release", "label": "配信開始", "value": "2026年1月22日", "source": "official", "verified": true },
-    { "key": "platforms", "label": "対応機種", "value": "PS5 / iOS / Android / PC", "source": "official", "verified": true },
+    { "key": "release", "label": "配信開始", "value": "2026年1月22日", "source": "official", "verified": true, "checkedAt": "2026-07-16", "sourceUrl": "https://endfield.gryphline.com/ja-jp/news/9574" },
+    { "key": "platforms", "label": "対応機種", "value": "PS5 / iOS / Android / PC", "source": "official", "verified": true, "checkedAt": "2026-07-16", "sourceUrl": "https://endfield.gryphline.com/ja-jp/news/9574" },
     { "key": "price", "label": "料金", "value": "基本プレイ無料（アイテム課金あり）", "source": "wiki", "verified": false },
     { "key": "origin", "label": "アークナイツとの関係", "value": "タワーディフェンスRPG『アークナイツ』(2019)と同一世界観の新作。惑星タロII を舞台に、オペレーターたちと産業・拠点を築きながら探索する", "source": "wiki", "verified": false },
     { "key": "features", "label": "特徴", "value": "リアルタイム戦闘＋基地建設・工場自動化（AIC）を組み合わせたゲームシステム", "source": "wiki", "verified": false },
-    { "key": "currentVersion", "label": "現行バージョン", "value": "コアバージョン 武陵決戦篇「向淵行」（2026年7月16日配信開始）", "source": "official", "verified": true },
-    { "key": "halfAnniversary", "label": "ハーフアニバーサリー", "value": "2026年7月にリリース半周年を記念した施策を展開中。本コラボもその一環", "source": "official", "verified": true }
+    { "key": "currentVersion", "label": "現行バージョン", "value": "コアバージョン 武陵決戦篇「向淵行」（2026年7月16日配信開始）", "source": "official", "verified": true, "checkedAt": "2026-07-16", "sourceUrl": "https://endfield.gryphline.com/ja-jp/news/7017" },
+    { "key": "halfAnniversary", "label": "ハーフアニバーサリー", "value": "2026年7月にリリース半周年を記念した施策を展開中。本コラボもその一環", "source": "official", "verified": true },
+    { "key": "term-administrator", "label": "管理人", "value": "公式のお知らせでプレイヤーへの呼びかけに使われる名称", "source": "official", "verified": true, "checkedAt": "2026-07-16", "sourceUrl": "https://endfield.gryphline.com/ja-jp/news/9574" },
+    { "key": "term-taloii", "label": "タロⅡ", "value": "本作の旅や探索の舞台として公式記事で言及される場所", "source": "official", "verified": true, "checkedAt": "2026-07-16", "sourceUrl": "https://endfield.gryphline.com/ja-jp/news/9574" },
+    { "key": "term-industry", "label": "集成工業システム", "value": "設備や生産ラインの構築・共有などを扱うゲーム内システム", "source": "official", "verified": true, "checkedAt": "2026-07-16", "sourceUrl": "https://endfield.gryphline.com/ja-jp/news/1340" }
   ],
   "officialLinks": [
     { "label": "公式サイト", "url": "https://endfield.gryphline.com/ja-jp/" },
