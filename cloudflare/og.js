@@ -29,57 +29,27 @@ async function loadFontSubset(family, weight, text) {
   return fontResponse.arrayBuffer();
 }
 
-// data/schedule.seed.json と同期して管理する（KVが空の時のNEXT UPフォールバック）。
-const SCHEDULE = [
-  { liverName: "白砂あやね", start: "2026-07-18T19:00:00+09:00" },
-  { liverName: "珠乃井ナナ", start: "2026-07-18T21:00:00+09:00" },
-  { liverName: "小清水透", start: "2026-07-18T23:00:00+09:00" },
-  { liverName: "水面まどか", start: "2026-07-19T19:00:00+09:00" },
-  { liverName: "栞葉るり", start: "2026-07-19T21:00:00+09:00" },
-  { liverName: "獅子堂あかり", start: "2026-07-19T23:00:00+09:00" },
-  { liverName: "石神のぞみ", start: "2026-07-20T22:30:00+09:00" },
-  { liverName: "梢桃音", start: "2026-07-21T22:00:00+09:00" },
-  { liverName: "五十嵐梨花", start: "2026-07-22T22:30:00+09:00" },
-  { liverName: "ソフィア・ヴァレンタイン", start: "2026-07-23T23:00:00+09:00" },
-  { liverName: "鏑木ろこ", start: "2026-07-24T22:00:00+09:00" },
-  { liverName: "綺沙良", start: "2026-07-25T22:00:00+09:00" },
-  { liverName: "倉持めると", start: "2026-07-26T22:30:00+09:00" },
-  { liverName: "司賀りこ", start: "2026-07-27T22:30:00+09:00" },
-  { liverName: "にじさんじ UNIT SHOWDOWN 本戦", start: "2026-07-28T21:00:00+09:00" },
-];
 const MAIN_MATCH_AT = Date.parse("2026-07-28T21:00:00+09:00");
-
-const WEEKDAYS_JA = ["日", "月", "火", "水", "木", "金", "土"];
 
 function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`);
 }
 
-/** UTC実行環境からJST表記 (M/D(曜) HH:mm) を作る */
-function formatJst(iso) {
-  const date = new Date(Date.parse(iso) + 9 * 60 * 60 * 1_000);
-  const hh = String(date.getUTCHours()).padStart(2, "0");
-  const mm = String(date.getUTCMinutes()).padStart(2, "0");
-  return `${date.getUTCMonth() + 1}/${date.getUTCDate()}(${WEEKDAYS_JA[date.getUTCDay()]}) ${hh}:${mm}`;
-}
-
-/** 表示状態を決める: live > upcoming(KV) > upcoming(静的) > 本戦告知 */
+/** 表示状態を決める: live中はON AIR、それ以外は企画全体の汎用カード */
 function resolveState(payload, now) {
   const live = (payload?.streams ?? []).filter((s) => s.liveStatus === "live");
   if (live.length > 0) {
     return { tag: "ON AIR", tone: "live", names: live.map((s) => s.liverName), when: "いま配信中！" };
   }
-  const upcoming = (payload?.streams ?? [])
-    .filter((s) => s.liveStatus === "upcoming" && s.scheduledStartTime)
-    .sort((a, b) => a.scheduledStartTime.localeCompare(b.scheduledStartTime))[0];
-  if (upcoming) {
-    return { tag: "NEXT UP", tone: "next", names: [upcoming.liverName], when: `${formatJst(upcoming.scheduledStartTime)} START` };
+  if (MAIN_MATCH_AT > now) {
+    return {
+      tag: "EVENT GUIDE",
+      tone: "next",
+      names: ["ライバー14名によるチーム対抗大会"],
+      when: "本戦 7/28(火) 21:00 / 練習配信 7/18–7/27",
+    };
   }
-  const scheduled = SCHEDULE.find((s) => Date.parse(s.start) > now);
-  if (scheduled) {
-    return { tag: "NEXT UP", tone: "next", names: [scheduled.liverName], when: `${formatJst(scheduled.start)} START` };
-  }
-  return { tag: "MAIN MATCH", tone: "next", names: ["チーム対抗大会"], when: "7/28(火) 21:00 開催" };
+  return { tag: "EVENT GUIDE", tone: "next", names: ["チーム対抗大会"], when: "本戦終了・アーカイブ公開中" };
 }
 
 function stripes(count) {
