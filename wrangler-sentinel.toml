@@ -1,0 +1,31 @@
+# AI外形監視 Worker（docs/MONITORING-PLAN.md）
+# デプロイ:      npx wrangler deploy -c wrangler-sentinel.toml
+# secret設定:    npx wrangler secret put RESEND_API_KEY -c wrangler-sentinel.toml
+#                npx wrangler secret put RUN_TOKEN -c wrangler-sentinel.toml
+name = "showdown-sentinel"
+main = "cloudflare/sentinel-worker.js"
+compatibility_date = "2026-07-01"
+compatibility_flags = ["nodejs_compat"]
+
+[browser]
+binding = "BROWSER"
+
+[ai]
+binding = "AI"
+
+[triggers]
+crons = ["*/20 * * * *"]
+
+# Worker→Worker は workers.dev 直fetch不可（error 1042）のため service binding 経由
+[[services]]
+binding = "LIVE_WORKER"
+service = "showdown-live"
+
+[[kv_namespaces]]
+binding = "SENTINEL_KV"
+id = "e148b2a28712464eab9ce6a0b930282b"
+
+[vars]
+MAIL_TO = "s7015518@gmail.com"
+# change: 状態変化時+日次サマリ / every: 毎チェック送信
+MAIL_MODE = "change"

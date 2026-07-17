@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#101114"/>
+  <rect y="46" width="64" height="18" fill="#F2E900"/>
+  <path d="M0 46h10L0 64zM18 46h12L18 64h-6zM38 46h12L38 64h-6zM58 46h6v12z" fill="#101114"/>
+  <text x="32" y="38" font-family="Arial Black, sans-serif" font-size="30" font-weight="900" fill="#F2E900" text-anchor="middle">U</text>
+</svg>

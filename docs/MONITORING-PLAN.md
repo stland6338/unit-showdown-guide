@@ -102,8 +102,8 @@ wrangler-sentinel.toml          # name=showdown-sentinel, browser binding,
 2. v2（任意）: スクショをR2保存しメールにリンク / llava系でスクショの視覚判定を追加
 3. 7/29以降: イベント終了とともに cron 停止（sentinel も撤収）
 
-## 決定が必要な点
+## 決定事項（2026-07-17 とらんど承認）
 
-1. メール送信手段: **Resend で進めてよいか**（独自ドメインがあれば Email Workers も可）
-2. 送信頻度: 毎チェック（72通/日）のままか、変化時+日次サマリか
-3. Browser Rendering が Free プラン枠を超えた場合に Workers Paid（$5/月）へ上げるか
+1. メール送信手段: **Resend**（`RESEND_API_KEY` を Worker secret へ。宛先 = Resend アカウントのメールアドレス）
+2. 送信頻度: **変化時 + 日次サマリ**（`MAIL_MODE=change`。毎チェック送信は `MAIL_MODE=every` で切替可）
+3. プラン: **無料枠で運用**（cron */20 固定。Browser Rendering 10分/日以内）
