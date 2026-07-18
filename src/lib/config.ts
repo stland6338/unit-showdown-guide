@@ -5,6 +5,6 @@ export const config = {
   liveApiUrl,
   /** 動的OGP画像。Worker の /og（liveApiUrl と同一オリジン） */
   ogImageUrl: liveApiUrl ? liveApiUrl.replace(/\/api\/live\/?$/, "/og") : "",
-  /** Googleフォームの回答URL。scripts/create-contact-form.gs で作成後にここへ設定（空なら「準備中」表示） */
-  contactUrl: "",
+  /** お問い合わせGoogleフォームの回答URL（空なら「準備中」表示） */
+  contactUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdxxSepFOnFUDiUhzj0zlKj_hrwbn2iv7l0b_6Ec611Mlt7Gg/viewform",
 } as const;
