@@ -298,6 +298,10 @@ h1.title .fill {
 }
 
 .countdown .num {
+  /* 秒の変化で数字幅が揺れてカード全体が伸縮しないよう固定幅にする */
+  display: inline-block;
+  min-width: 2.2ch;
+  text-align: center;
   color: var(--signal);
   font-family: var(--font-display), sans-serif;
   font-size: clamp(36px, 5vw, 56px);
