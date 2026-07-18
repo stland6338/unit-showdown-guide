@@ -162,6 +162,17 @@ export default {
 
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
+    // Xなどのクローラーは画像取得前にHEADで検証するため、GETと同じヘッダーを返す
+    if (request.method === "HEAD" && url.pathname === "/og") {
+      return new Response(null, {
+        headers: { "content-type": "image/png", "cache-control": "public, max-age=300" },
+      });
+    }
+    if (url.pathname === "/robots.txt") {
+      return new Response("User-agent: *\nAllow: /\n", {
+        headers: { "content-type": "text/plain; charset=utf-8" },
+      });
+    }
     if (request.method === "GET" && url.pathname === "/og") {
       try {
         return await handleOg(request, env, ctx);
