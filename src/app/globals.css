@@ -497,6 +497,45 @@ section {
   box-shadow: 3px 3px 0 var(--signal-dim);
 }
 
+.slot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.slot-actions .cta {
+  margin-top: 0;
+}
+
+.share-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.share-mini:hover,
+.share-mini:focus-visible {
+  border-color: var(--signal);
+  color: var(--signal);
+}
+
+.slot--live .share-mini:hover,
+.slot--live .share-mini:focus-visible {
+  border-color: var(--live);
+  color: var(--live);
+}
+
 .slot--empty .liver {
   color: var(--muted);
   font-family: var(--font-display), sans-serif;

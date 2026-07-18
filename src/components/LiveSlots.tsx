@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Avatar } from "./Avatar";
 import { formatDateTimeJst, streamHref } from "@/lib/format";
+import { openShareIntent } from "@/lib/share";
 import type { LiveItem, LivePayload, ShowdownStream } from "@/lib/types";
 
 function isLivePayload(value: unknown): value is LivePayload {
@@ -85,9 +86,24 @@ function StreamSlot({ stream, title, live }: { stream: ShowdownStream; title?: s
       <div className="when">
         {formatDateTimeJst(stream.scheduledStartTime)} JST {live ? "– LIVE" : "START"}
       </div>
-      <a className="cta" href={href} target="_blank" rel="noopener noreferrer">
-        {live ? "▶ 視聴する" : stream.videoId ? "▶ 待機所へ" : "チャンネルへ"}
-      </a>
+      <div className="slot-actions">
+        <a className="cta" href={href} target="_blank" rel="noopener noreferrer">
+          {live ? "▶ 視聴する" : stream.videoId ? "▶ 待機所へ" : "チャンネルへ"}
+        </a>
+        <button
+          type="button"
+          className="share-mini"
+          onClick={() =>
+            openShareIntent(
+              live
+                ? `🔴 ${stream.liverName} がエンドフィールド練習配信中！`
+                : `次の配信は ${stream.liverName}（${formatDateTimeJst(stream.scheduledStartTime)}〜）`
+            )
+          }
+        >
+          <span aria-hidden>𝕏</span> {live ? "配信中を共有" : "次の予定を共有"}
+        </button>
+      </div>
     </article>
   );
 }

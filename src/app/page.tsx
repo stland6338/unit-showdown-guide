@@ -64,7 +64,7 @@ export default function HomePage() {
             </aside>
           </div>
           <div className="hero-actions">
-            <ShareButton staticStreams={streams} />
+            <ShareButton />
           </div>
         </div>
       </div>
