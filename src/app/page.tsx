@@ -3,17 +3,17 @@ import { Avatar } from "@/components/Avatar";
 import { Countdown } from "@/components/Countdown";
 import { LiveSlots } from "@/components/LiveSlots";
 import { ShareButton } from "@/components/ShareButton";
+import { TimelinePreview } from "@/components/TimelinePreview";
 import { TweetEmbed } from "@/components/TweetEmbed";
 import { Hazard, SectionHeading } from "@/components/SiteChrome";
 import { config } from "@/lib/config";
 import { getEvent, getFact, getStreams } from "@/lib/data";
-import { formatTimeJst, formatTimelineDate, groupStreamsByDay, streamHref } from "@/lib/format";
 
 export default function HomePage() {
   const event = getEvent();
   const streams = getStreams();
   const practice = streams.filter((stream) => stream.kind === "practice");
-  const previewGroups = groupStreamsByDay(practice).slice(0, 3);
+  const streamById = new Map(streams.map((stream) => [stream.id, stream]));
   const genre = getFact("genre");
   const release = getFact("release");
   const platforms = getFact("platforms");
@@ -32,8 +32,8 @@ export default function HomePage() {
         <div className="wrap">
           <span className="kicker">NIJISANJI × ARKNIGHTS: ENDFIELD — HALF ANNIVERSARY #PR</span>
           <h1 className="title">
-            <span className="stroke">Unit</span>
-            <span className="fill">Showdown</span>
+            <span className="stroke">Nijisanji</span>
+            <span className="fill">Unit Showdown</span>
           </h1>
           <p className="title-ja">
             にじさんじライバー14名による <em>チーム対抗大会</em> 非公式観戦ガイド
@@ -81,26 +81,7 @@ export default function HomePage() {
       <section id="schedule">
         <div className="wrap">
           <SectionHeading number="SEC.02" title="Practice Schedule" japanese="練習配信スケジュール（抜粋）" />
-          <div className="tl">
-            {previewGroups.map((group) => {
-              const date = formatTimelineDate(group.items[0].scheduledStartTime);
-              return (
-                <div className="tl-day" key={group.date}>
-                  <div className="tl-date">{date.date} <span className="dow">{date.weekday}</span></div>
-                  <div className="tl-items">
-                    {group.items.map((stream) => (
-                      <a className="tl-item" href={streamHref(stream)} target="_blank" rel="noopener noreferrer" key={stream.id}>
-                        <span className="tl-time">{formatTimeJst(stream.scheduledStartTime)}</span>
-                        <Avatar src={stream.channelIcon} size={32} />
-                        <span className="tl-name">{stream.liverName}</span>
-                        <span className="tl-arrow">CH →</span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <TimelinePreview endpoint={config.liveApiUrl} streams={practice} days={3} />
           <Link className="more-link" href="/schedule/">全14配信 + 本戦のスケジュールを見る →</Link>
         </div>
       </section>
@@ -129,9 +110,39 @@ export default function HomePage() {
                 </ul>
               </div>
             )}
-            <div className="coming">
-              <b>TEAM ROSTER — 発表待ち。</b> {event.mainMatch.teamsNote}。{event.substitution}（公式発表）
-            </div>
+            {event.teams ? (
+              <div className="teams">
+                <div className="casters-label">TEAM ROSTER — {event.mainMatch.teamsNote}</div>
+                <div className="teams-vs">
+                  {event.teams.items.map((team, index) => (
+                    <div className="team" key={team.id}>
+                      {index > 0 && <div className="team-vs-mark" aria-hidden>VS</div>}
+                      <div className="team-name">{team.name}</div>
+                      <div className="team-caption">{team.caption}</div>
+                      <ul className="team-members">
+                        {team.memberIds.map((memberId) => {
+                          const member = streamById.get(memberId);
+                          if (!member) return null;
+                          return (
+                            <li key={memberId}>
+                              <a href={member.channelUrl ?? "#"} target="_blank" rel="noopener noreferrer" title={member.liverName}>
+                                <Avatar src={member.channelIcon} size={44} />
+                                <span>{member.liverName}</span>
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <p className="teams-note">※構図は各配信・告知からの確認情報。{event.substitution}（公式発表）</p>
+              </div>
+            ) : (
+              <div className="coming">
+                <b>TEAM ROSTER — 発表待ち。</b> {event.mainMatch.teamsNote}。{event.substitution}（公式発表）
+              </div>
+            )}
           </div>
         </div>
       </section>

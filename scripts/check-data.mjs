@@ -83,6 +83,19 @@ if (event?.casters) {
   if (event.casters.verified !== true) errors.push("event.json: casters は verified:true が必要");
 }
 
+if (event?.teams) {
+  const memberIds = (event.teams.items ?? []).flatMap((team) => team.memberIds ?? []);
+  if (new Set(memberIds).size !== memberIds.length) errors.push("event.json: teams のmemberIdが重複");
+  if (memberIds.length !== 14) errors.push(`event.json: teams の合計は14名であるべきが ${memberIds.length}名`);
+  for (const memberId of memberIds) {
+    if (!ids.has(memberId)) errors.push(`event.json: teams のmemberId ${memberId} がscheduleに存在しない`);
+  }
+  for (const team of event.teams.items ?? []) {
+    if (!team.id || !team.name || !team.caption) errors.push(`event.json: team ${team.id ?? "(id無し)"} のname/captionが空`);
+  }
+  if (event.teams.verified !== true) errors.push("event.json: teams は verified:true が必要");
+}
+
 const endfield = read("endfield-facts.json");
 if (!Array.isArray(endfield.facts)) errors.push("endfield-facts.json: facts が配列でない");
 const factKeys = new Set();

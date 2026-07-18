@@ -5,5 +5,6 @@ export const config = {
   liveApiUrl,
   /** 動的OGP画像。Worker の /og（liveApiUrl と同一オリジン） */
   ogImageUrl: liveApiUrl ? liveApiUrl.replace(/\/api\/live\/?$/, "/og") : "",
-  contactUrl: "https://github.com/stland6338/unit-showdown-guide/issues/new/choose",
+  /** Googleフォームの回答URL。scripts/create-contact-form.gs で作成後にここへ設定（空なら「準備中」表示） */
+  contactUrl: "",
 } as const;

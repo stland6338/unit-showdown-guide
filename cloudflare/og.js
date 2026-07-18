@@ -83,8 +83,8 @@ export async function handleOg(request, env, ctx) {
       <div style="display:flex;color:#F2E900;font-family:'Chakra Petch';font-size:24px;letter-spacing:4px">
         NIJISANJI × ARKNIGHTS: ENDFIELD — #PR
       </div>
-      <div style="display:flex;font-family:'Chakra Petch';font-size:84px;font-weight:700;color:#F2E900;margin-top:4px">
-        UNIT SHOWDOWN
+      <div style="display:flex;font-family:'Chakra Petch';font-size:64px;font-weight:700;color:#F2E900;margin-top:8px">
+        NIJISANJI UNIT SHOWDOWN
       </div>
       <div style="display:flex;flex-direction:column;border:3px solid ${accent};background:#17181d;padding:24px 32px;margin-top:20px">
         <div style="display:flex;flex-direction:row;align-items:center">

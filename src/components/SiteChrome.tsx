@@ -11,8 +11,8 @@ export function SiteHeader() {
       </div>
       <header className="site-header">
         <div className="wrap site-inner">
-          <Link className="logo" href="/" aria-label="UNIT SHOWDOWN 非公式観戦ガイド トップ">
-            UNIT SHOWDOWN
+          <Link className="logo" href="/" aria-label="NIJISANJI UNIT SHOWDOWN 非公式観戦ガイド トップ">
+            NIJISANJI UNIT SHOWDOWN
             <small>UNOFFICIAL FAN GUIDE</small>
           </Link>
           <nav className="gnav" aria-label="メインナビゲーション">
@@ -41,11 +41,18 @@ export function SiteFooter() {
               「にじさんじ」は ANYCOLOR株式会社の、『アークナイツ：エンドフィールド』は GRYPHLINE の商標または登録商標です。
             </p>
             <p className="disclaimer">
-              掲載内容の誤り・権利に関するご連絡は
-              <a href={config.contactUrl} target="_blank" rel="noopener noreferrer">
-                お問い合わせ窓口
-              </a>
-              からお知らせください。権利者からの要請があった場合は、確認のうえ速やかに修正・取り下げを行います。
+              {config.contactUrl ? (
+                <>
+                  掲載内容の誤り・権利に関するご連絡は
+                  <a href={config.contactUrl} target="_blank" rel="noopener noreferrer">
+                    お問い合わせフォーム
+                  </a>
+                  からお知らせください。
+                </>
+              ) : (
+                <>掲載内容の誤り・権利に関するお問い合わせフォームは準備中です。</>
+              )}
+              権利者からの要請があった場合は、確認のうえ速やかに修正・取り下げを行います。
             </p>
           </div>
           <div className="footer-sources" aria-label="企画情報の出典">

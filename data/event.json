@@ -13,7 +13,7 @@
       "format": "チーム対抗大会（配信）",
       "prize": "優勝チームに豪華賞品",
       "teams": null,
-      "teamsNote": "チーム編成は未発表（2026-07-16時点）。発表後にここへ追記する"
+      "teamsNote": "Idios 7名 vs 連合7名の対抗戦（チームの正式名称は未発表）"
     },
     "practicePeriod": {
       "start": "2026-07-18",
@@ -66,6 +66,42 @@
         }
       ],
       "source": "official",
+      "verified": true,
+      "checkedAt": "2026-07-18"
+    },
+    "teams": {
+      "$comment": "配信・告知から判明した構図（2026-07-18確認）。正式なチーム名称は未発表のため仮表記",
+      "items": [
+        {
+          "id": "idios",
+          "name": "Team Idios",
+          "caption": "同期7人組ユニット「Idios」",
+          "memberIds": [
+            "practice-koshimizu-toru",
+            "practice-shishido-akari",
+            "practice-ishigami-nozomi",
+            "practice-igarashi-rika",
+            "practice-sophia-valentine",
+            "practice-kaburaki-roco",
+            "practice-kuramochi-meruto"
+          ]
+        },
+        {
+          "id": "united",
+          "name": "Team 連合",
+          "caption": "Idios以外の7名（呼称は当サイトの仮置き）",
+          "memberIds": [
+            "practice-shirasuna-ayane",
+            "practice-tamanoi-nana",
+            "practice-minamo-madoka",
+            "practice-shioriha-ruri",
+            "practice-kozue-mone",
+            "practice-kisara",
+            "practice-shiga-riko"
+          ]
+        }
+      ],
+      "source": "stream",
       "verified": true,
       "checkedAt": "2026-07-18"
     }

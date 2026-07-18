@@ -12,6 +12,14 @@ export interface Caster {
   tweetUrl: string;
 }
 
+export interface Team {
+  id: string;
+  name: string;
+  caption: string;
+  /** ShowdownStream.id を参照 */
+  memberIds: string[];
+}
+
 export interface ShowdownStream {
   id: string;
   liverName: string;
@@ -55,6 +63,12 @@ export interface EventData {
   verified: boolean;
   casters?: {
     items: Caster[];
+    source: SourceLabel;
+    verified: boolean;
+    checkedAt: string;
+  };
+  teams?: {
+    items: Team[];
     source: SourceLabel;
     verified: boolean;
     checkedAt: string;
