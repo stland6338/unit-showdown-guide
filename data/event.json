@@ -2,7 +2,10 @@
   "$comment": "企画の基本情報。全項目 2026-07-16 に公式ツイート本文から確認済み。",
   "event": {
     "name": "エンドフィールド×にじさんじ UNIT SHOWDOWN",
-    "hashtags": ["#にじユニショーダウン", "#エンドフィールド"],
+    "hashtags": [
+      "#にじユニショーダウン",
+      "#エンドフィールド"
+    ],
     "isPr": true,
     "occasion": "『アークナイツ：エンドフィールド』ハーフアニバーサリー記念",
     "mainMatch": {
@@ -12,14 +15,59 @@
       "teams": null,
       "teamsNote": "チーム編成は未発表（2026-07-16時点）。発表後にここへ追記する"
     },
-    "practicePeriod": { "start": "2026-07-18", "end": "2026-07-27", "liverCount": 14 },
+    "practicePeriod": {
+      "start": "2026-07-18",
+      "end": "2026-07-27",
+      "liverCount": 14
+    },
     "substitution": "ルンルンは休養中のため、栞葉るりが各種施策に代理出演",
     "gameDownloadUrl": "https://akendfield.gryphline.com/",
     "sources": [
-      { "label": "開催告知", "url": "https://x.com/nijisanji_app/status/2077574089435406620", "checkedAt": "2026-07-16" },
-      { "label": "練習配信スケジュール", "url": "https://x.com/nijisanji_app/status/2077574182112837889", "checkedAt": "2026-07-16" }
+      {
+        "label": "開催告知",
+        "url": "https://x.com/nijisanji_app/status/2077574089435406620",
+        "checkedAt": "2026-07-16"
+      },
+      {
+        "label": "練習配信スケジュール",
+        "url": "https://x.com/nijisanji_app/status/2077574182112837889",
+        "checkedAt": "2026-07-16"
+      }
     ],
     "source": "official",
-    "verified": true
+    "verified": true,
+    "casters": {
+      "$comment": "各ライバー本人の告知ポストから2026-07-18確認",
+      "items": [
+        {
+          "name": "ドーラ",
+          "role": "MC",
+          "tweetUrl": "https://x.com/___Dola/status/2077607205671694448"
+        },
+        {
+          "name": "夢追翔",
+          "role": "MC・神視点",
+          "tweetUrl": "https://x.com/kakeru_yumeoi/status/2077679908525047940"
+        },
+        {
+          "name": "える",
+          "role": "解説/MC",
+          "tweetUrl": "https://x.com/Elu_World/status/2077675644801220779"
+        },
+        {
+          "name": "伊波ライ",
+          "role": "解説",
+          "tweetUrl": "https://x.com/rai_173/status/2077737830785442142"
+        },
+        {
+          "name": "夕陽リリ",
+          "role": "解説",
+          "tweetUrl": "https://x.com/Yuuhi_Riri/status/2077680429239505210"
+        }
+      ],
+      "source": "official",
+      "verified": true,
+      "checkedAt": "2026-07-18"
+    }
   }
 }

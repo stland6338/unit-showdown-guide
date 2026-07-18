@@ -95,6 +95,21 @@ export default function HomePage() {
               <div className="mm-cell"><div className="k">FORMAT</div><div className="v">チーム対抗<small> 大会配信</small></div></div>
               <div className="mm-cell"><div className="k">PRIZE</div><div className="v">豪華賞品<small> 優勝チームへ</small></div></div>
             </div>
+            {event.casters && (
+              <div className="casters">
+                <div className="casters-label">MC / 解説</div>
+                <ul>
+                  {event.casters.items.map((caster) => (
+                    <li key={caster.name}>
+                      <a href={caster.tweetUrl} target="_blank" rel="noopener noreferrer" title="本人の告知ポストを見る">
+                        <span className="caster-role">{caster.role}</span>
+                        <span className="caster-name">{caster.name}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div className="coming">
               <b>TEAM ROSTER — 発表待ち。</b> {event.mainMatch.teamsNote}。{event.substitution}（公式発表）
             </div>

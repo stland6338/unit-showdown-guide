@@ -1,6 +1,17 @@
 export type LiveStatus = "upcoming" | "live" | "archived";
 export type SourceLabel = "official" | "wiki" | "stream" | "ai_extracted" | "editor";
 
+export interface Announcement {
+  url: string;
+  label: "参加告知" | "配信告知";
+}
+
+export interface Caster {
+  name: string;
+  role: string;
+  tweetUrl: string;
+}
+
 export interface ShowdownStream {
   id: string;
   liverName: string;
@@ -14,6 +25,8 @@ export interface ShowdownStream {
   liveStatus: LiveStatus;
   source: SourceLabel;
   verified: boolean;
+  /** 本人告知ポストへのリンク（UIでは折りたたみ表示） */
+  announcements?: Announcement[];
 }
 
 export interface EventSource {
@@ -40,6 +53,12 @@ export interface EventData {
   sources: EventSource[];
   source: SourceLabel;
   verified: boolean;
+  casters?: {
+    items: Caster[];
+    source: SourceLabel;
+    verified: boolean;
+    checkedAt: string;
+  };
 }
 
 export interface EndfieldFact {

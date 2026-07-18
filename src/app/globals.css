@@ -589,6 +589,129 @@ section {
   border-color: var(--signal);
 }
 
+/* 本人告知の折りたたみ */
+details.ann {
+  margin-top: 12px;
+  border: 1px dashed var(--line);
+}
+
+details.ann summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 8px 12px;
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  transition: color 0.15s;
+}
+
+details.ann summary::before {
+  content: "▸ ";
+  color: var(--signal);
+}
+
+details.ann[open] summary::before {
+  content: "▾ ";
+}
+
+details.ann summary::-webkit-details-marker {
+  display: none;
+}
+
+details.ann summary:hover,
+details.ann summary:focus-visible {
+  color: var(--signal);
+}
+
+details.ann ul {
+  margin: 0;
+  padding: 0 12px 10px;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+}
+
+details.ann a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--chalk);
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+details.ann a:hover {
+  color: var(--signal);
+}
+
+.ann-label {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid var(--signal-dim);
+  color: var(--signal);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+
+.ann-label--stream {
+  border-color: var(--chalk);
+  color: var(--chalk);
+}
+
+/* 本戦パネル: MC / 解説 */
+.casters {
+  position: relative;
+  z-index: 1;
+  margin-top: 26px;
+}
+
+.casters-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+}
+
+.casters ul {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.casters a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  background: var(--carbon-3);
+  padding: 8px 14px;
+  text-decoration: none;
+  color: var(--chalk);
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.casters a:hover {
+  border-color: var(--signal);
+  transform: translate(-2px, -2px);
+}
+
+.caster-role {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--signal);
+}
+
+.caster-name {
+  font-size: 15px;
+  font-weight: 700;
+}
+
 /* X共有ボタン */
 .hero-actions {
   display: flex;

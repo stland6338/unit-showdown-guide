@@ -58,6 +58,23 @@ export function ScheduleGrid({ endpoint, streams }: { endpoint: string; streams:
             </a>
             <p className="stream-card-title">{stream.title ?? (stream.kind === "main" ? "UNIT SHOWDOWN 本戦" : "練習配信")}</p>
             <time dateTime={stream.scheduledStartTime}>{formatDateTimeJst(stream.scheduledStartTime)} JST</time>
+            {(stream.announcements?.length ?? 0) > 0 && (
+              <details className="ann">
+                <summary>本人の告知ポスト（{stream.announcements!.length}件）</summary>
+                <ul>
+                  {stream.announcements!.map((announcement) => (
+                    <li key={announcement.url}>
+                      <a href={announcement.url} target="_blank" rel="noopener noreferrer">
+                        <span className={`ann-label ${announcement.label === "配信告知" ? "ann-label--stream" : ""}`}>
+                          {announcement.label}
+                        </span>
+                        Xで見る →
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            )}
             <a className="card-link" href={href} target="_blank" rel="noopener noreferrer">
               {stream.videoId ? "YouTubeで見る" : stream.kind === "main" ? "公式情報を確認" : "チャンネルへ"} →
             </a>

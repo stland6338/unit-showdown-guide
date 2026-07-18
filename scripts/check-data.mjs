@@ -43,6 +43,12 @@ for (const stream of streams) {
     errors.push(`${at}: videoId 形式不正 ${stream.videoId}`);
   if (stream.channelIcon != null && !/^https:\/\/yt3\.(googleusercontent|ggpht)\.com\//.test(stream.channelIcon))
     errors.push(`${at}: channelIcon はYouTube配信のアイコンURL (yt3.*) にする`);
+  for (const announcement of stream.announcements ?? []) {
+    if (!/^https:\/\/x\.com\/[A-Za-z0-9_]+\/status\/\d+$/.test(announcement.url ?? ""))
+      errors.push(`${at}: announcement.url がx.comのポストURLでない`);
+    if (!new Set(["参加告知", "配信告知"]).has(announcement.label))
+      errors.push(`${at}: announcement.label 不正 ${announcement.label}`);
+  }
   if (stream.kind === "practice") {
     if (!CHANNEL_ID.test(stream.channelId ?? "")) errors.push(`${at}: channelId 形式不正 ${stream.channelId}`);
     if (channelIds.has(stream.channelId)) errors.push(`${at}: channelId 重複 ${stream.channelId}`);
@@ -65,6 +71,16 @@ if (event?.verified !== true) errors.push("event.json: event は verified:true �
 for (const source of event?.sources ?? []) {
   if (!source.label || !HTTPS_URL.test(source.url ?? "") || !/^\d{4}-\d{2}-\d{2}$/.test(source.checkedAt ?? ""))
     errors.push("event.json: sources の label/url/checkedAt が不正");
+}
+
+if (event?.casters) {
+  if (!Array.isArray(event.casters.items) || event.casters.items.length === 0)
+    errors.push("event.json: casters.items が空");
+  for (const caster of event.casters.items ?? []) {
+    if (!caster.name || !caster.role || !/^https:\/\/x\.com\//.test(caster.tweetUrl ?? ""))
+      errors.push(`event.json: caster ${caster.name ?? "(名前なし)"} の name/role/tweetUrl が不正`);
+  }
+  if (event.casters.verified !== true) errors.push("event.json: casters は verified:true が必要");
 }
 
 const endfield = read("endfield-facts.json");
