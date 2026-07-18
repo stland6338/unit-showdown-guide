@@ -712,6 +712,79 @@ details.ann a:hover {
   font-weight: 700;
 }
 
+/* カウントダウン横のコラボ紹介パネル */
+.hero-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 20px;
+  margin-top: 44px;
+}
+
+.hero-row .countdown {
+  margin-top: 0;
+}
+
+.collab-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 460px;
+  padding: 18px 24px;
+  border: 1px solid var(--line);
+  background: var(--carbon-2);
+}
+
+.collab-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+}
+
+.collab-pair {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.collab-side b {
+  display: block;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.collab-side span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.collab-x {
+  color: var(--signal);
+  font-family: var(--font-display), sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  flex: none;
+}
+
+.collab-link {
+  align-self: flex-start;
+  color: var(--signal);
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--signal-dim);
+}
+
+.collab-link:hover {
+  border-bottom-style: solid;
+}
+
 /* X共有ボタン */
 .hero-actions {
   display: flex;

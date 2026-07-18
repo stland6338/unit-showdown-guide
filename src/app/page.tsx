@@ -43,7 +43,26 @@ export default function HomePage() {
             <span>練習配信 <b>7/18 – 7/27</b></span>
             <span>参加 <b>14</b> LIVERS</span>
           </div>
-          <Countdown />
+          <div className="hero-row">
+            <Countdown />
+            <aside className="collab-card" aria-label="コラボ企画の概要">
+              <div className="collab-label">COLLABORATION — コラボ企画</div>
+              <div className="collab-pair">
+                <div className="collab-side">
+                  <b>にじさんじ</b>
+                  <span>VTuberグループ<br />ライバー14名が参戦</span>
+                </div>
+                <div className="collab-x" aria-hidden>×</div>
+                <div className="collab-side">
+                  <b>アークナイツ：<br />エンドフィールド</b>
+                  <span>3Dリアルタイム戦略RPG<br />ハーフアニバーサリー記念</span>
+                </div>
+              </div>
+              <a className="collab-link" href={event.gameDownloadUrl} target="_blank" rel="noopener noreferrer">
+                ゲーム公式サイト →
+              </a>
+            </aside>
+          </div>
           <div className="hero-actions">
             <ShareButton staticStreams={streams} />
           </div>
