@@ -11,9 +11,9 @@ export function SiteHeader() {
       </div>
       <header className="site-header">
         <div className="wrap site-inner">
-          <Link className="logo" href="/" aria-label="NIJISANJI UNIT SHOWDOWN 非公式観戦ガイド トップ">
-            NIJISANJI UNIT SHOWDOWN
-            <small>UNOFFICIAL FAN GUIDE</small>
+          <Link className="logo" href="/" aria-label="ユニショーダウン非公式観戦ガイド トップ">
+            UNIT SHOWDOWN FAN GUIDE
+            <small>UNOFFICIAL — 非公式観戦ガイド</small>
           </Link>
           <nav className="gnav" aria-label="メインナビゲーション">
             <Link href="/schedule/">SCHEDULE</Link>

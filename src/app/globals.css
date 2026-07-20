@@ -216,6 +216,20 @@ h1.title .fill {
   text-shadow: 6px 6px 0 rgb(242 233 0 / 15%);
 }
 
+.title-badge {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 6px 16px;
+  border: 2px solid var(--signal);
+  color: var(--signal);
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(11px, 1.6vw, 14px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-1.2deg);
+}
+
 .title-ja {
   margin-top: 18px;
   font-size: clamp(15px, 2.4vw, 22px);

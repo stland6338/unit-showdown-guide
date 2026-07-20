@@ -34,6 +34,7 @@ export default function HomePage() {
           <h1 className="title">
             <span className="stroke">Nijisanji</span>
             <span className="fill">Unit Showdown</span>
+            <span className="title-badge">Unofficial Fan Guide — 非公式観戦ガイド</span>
           </h1>
           <p className="title-ja">
             にじさんじライバー14名による <em>チーム対抗大会</em> 非公式観戦ガイド

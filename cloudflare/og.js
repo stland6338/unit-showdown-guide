@@ -86,6 +86,11 @@ export async function handleOg(request, env, ctx) {
       <div style="display:flex;font-family:'Chakra Petch';font-size:64px;font-weight:700;color:#F2E900;margin-top:8px">
         NIJISANJI UNIT SHOWDOWN
       </div>
+      <div style="display:flex;margin-top:10px">
+        <div style="display:flex;border:2px solid #F2E900;color:#F2E900;font-size:24px;font-weight:700;padding:4px 18px;letter-spacing:3px;transform:rotate(-1deg)">
+          非公式観戦ガイド — UNOFFICIAL FAN GUIDE
+        </div>
+      </div>
       <div style="display:flex;flex-direction:column;border:3px solid ${accent};background:#17181d;padding:24px 32px;margin-top:20px">
         <div style="display:flex;flex-direction:row;align-items:center">
           <div style="display:flex;background:${accent};color:${isLive ? "#ffffff" : "#101114"};font-family:'Chakra Petch';font-size:26px;font-weight:700;padding:4px 18px;letter-spacing:3px">
