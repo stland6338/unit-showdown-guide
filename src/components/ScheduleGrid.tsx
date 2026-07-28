@@ -17,10 +17,13 @@ export function ScheduleGrid({ endpoint, streams }: { endpoint: string; streams:
       {merged.map((stream, index) => {
         const href = streamHref(stream);
         const isLive = stream.liveStatus === "live";
+        const postponed = Boolean(stream.postponed) && stream.liveStatus === "upcoming";
         return (
           <article className={`stream-card ${isLive ? "stream-card--live" : ""}`} key={stream.id}>
             <div className="stream-card-topline">
-              <span className={`status status--${stream.liveStatus}`}>{statusLabel[stream.liveStatus]}</span>
+              <span className={`status ${postponed ? "status--postponed" : `status--${stream.liveStatus}`}`}>
+                {postponed ? "POSTPONED" : statusLabel[stream.liveStatus]}
+              </span>
               <span className="stream-index">{String(index + 1).padStart(2, "0")}</span>
             </div>
             {stream.videoId && (
@@ -34,7 +37,13 @@ export function ScheduleGrid({ endpoint, streams }: { endpoint: string; streams:
               <h2>{stream.liverName}</h2>
             </a>
             <p className="stream-card-title">{stream.title ?? (stream.kind === "main" ? "UNIT SHOWDOWN 本戦" : "練習配信")}</p>
-            <time dateTime={stream.scheduledStartTime}>{formatDateTimeJst(stream.scheduledStartTime)} JST</time>
+            {postponed ? (
+              <time dateTime={stream.scheduledStartTime}>
+                延期 — 日程後日発表（当初 {formatDateTimeJst(stream.scheduledStartTime)} JST）
+              </time>
+            ) : (
+              <time dateTime={stream.scheduledStartTime}>{formatDateTimeJst(stream.scheduledStartTime)} JST</time>
+            )}
             {(stream.announcements?.length ?? 0) > 0 && (
               <details className="ann">
                 <summary>本人の告知ポスト（{stream.announcements!.length}件）</summary>

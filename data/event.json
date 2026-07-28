@@ -8,6 +8,17 @@
     ],
     "isPr": true,
     "occasion": "『アークナイツ：エンドフィールド』ハーフアニバーサリー記念",
+    "postponement": {
+      "$comment": "公式ポスト（2082054214457684201）で2026-07-28に延期を確認。延期日は未発表",
+      "postponed": true,
+      "originalDatetimeLabel": "7/28 (火) 21:00",
+      "reason": "7/28に発生した地震の状況を鑑みた公式判断",
+      "rescheduleNote": "延期日等の詳細は後日発表",
+      "sourceUrl": "https://x.com/nijisanji_app/status/2082054214457684201",
+      "source": "official",
+      "verified": true,
+      "checkedAt": "2026-07-28"
+    },
     "mainMatch": {
       "datetime": "2026-07-28T21:00:00+09:00",
       "format": "チーム対抗大会（配信）",
@@ -32,6 +43,16 @@
         "label": "練習配信スケジュール",
         "url": "https://x.com/nijisanji_app/status/2077574182112837889",
         "checkedAt": "2026-07-16"
+      },
+      {
+        "label": "前日告知（本戦キービジュアル）",
+        "url": "https://x.com/nijisanji_app/status/2081567819968426129",
+        "checkedAt": "2026-07-27"
+      },
+      {
+        "label": "延期のお知らせ",
+        "url": "https://x.com/nijisanji_app/status/2082054214457684201",
+        "checkedAt": "2026-07-28"
       }
     ],
     "source": "official",
@@ -68,6 +89,47 @@
       "source": "official",
       "verified": true,
       "checkedAt": "2026-07-18"
+    },
+    "rules": {
+      "$comment": "公式ルール解説スライド（配信画面キャプチャ）から2026-07-27確認",
+      "overall": [
+        { "label": "参加人数", "value": "全14名", "note": "7名×2チーム" },
+        { "label": "試合数", "value": "全3ROUND", "note": "チーム戦2ROUND + 個人戦1ROUND" },
+        { "label": "ポイント", "value": "各ROUNDのクリアタイム順に付与", "note": "1位14pt 〜 14位1pt" },
+        { "label": "チーム戦勝敗", "value": "チーム戦2ROUNDの合計ポイントで決定" },
+        { "label": "同点時の処置", "value": "個人戦の優勝者が所属するチームの勝利" }
+      ],
+      "rounds": [
+        {
+          "round": 1,
+          "name": "映像の記念碑タイムアタック",
+          "format": "チーム戦",
+          "timeLimit": "25分",
+          "detail": "以下3ステージのクリアタイムを競う",
+          "stages": [
+            "無機的造物 — 突進阻止",
+            "濁流具現 — 汚れた血筋",
+            "死の争鳴 — 天鼓咆哮"
+          ]
+        },
+        {
+          "round": 2,
+          "name": "武陵城 撮影タイムアタック",
+          "format": "チーム戦",
+          "timeLimit": "15分",
+          "detail": "武陵城内の指定された5地点の撮影完了タイムを競う"
+        },
+        {
+          "round": 3,
+          "name": "Lv.90ボス討伐タイムアタック",
+          "format": "個人戦",
+          "timeLimit": "10分",
+          "detail": "千人隊長アレイクレウス Lv.90 の討伐タイムを競う"
+        }
+      ],
+      "source": "stream",
+      "verified": true,
+      "checkedAt": "2026-07-27"
     },
     "teams": {
       "$comment": "配信・告知から判明した構図（2026-07-18確認）。正式なチーム名称は未発表のため仮表記",

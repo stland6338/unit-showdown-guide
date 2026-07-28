@@ -19,8 +19,24 @@ export default function HomePage() {
   const platforms = getFact("platforms");
   const currentVersion = getFact("currentVersion");
 
+  const postponement = event.postponement?.postponed ? event.postponement : null;
+
   return (
     <>
+      {postponement && (
+        <div className="notice-strip" role="status">
+          <div className="wrap">
+            <span className="notice-badge">延期</span>
+            <p>
+              {postponement.originalDatetimeLabel} 開催予定だった本戦は、{postponement.reason}により延期となりました。
+              {postponement.rescheduleNote}です。
+            </p>
+            <a href={postponement.sourceUrl} target="_blank" rel="noopener noreferrer">
+              公式のお知らせ（{postponement.checkedAt} 確認）→
+            </a>
+          </div>
+        </div>
+      )}
       <div className="hero grid-bg">
         <svg className="hero-gear" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth=".6" aria-hidden>
           <circle cx="50" cy="50" r="46" />
@@ -40,12 +56,16 @@ export default function HomePage() {
             にじさんじライバー14名による <em>チーム対抗大会</em> 非公式観戦ガイド
           </p>
           <div className="hero-meta">
-            <span>本戦 <b>7/28 (火) 21:00</b> JST</span>
+            {postponement ? (
+              <span>本戦 <b>延期</b>（日程後日発表）</span>
+            ) : (
+              <span>本戦 <b>7/28 (火) 21:00</b> JST</span>
+            )}
             <span>練習配信 <b>7/18 – 7/27</b></span>
             <span>参加 <b>14</b> LIVERS</span>
           </div>
           <div className="hero-row">
-            <Countdown />
+            <Countdown postponed={Boolean(postponement)} />
             <aside className="collab-card" aria-label="コラボ企画の概要">
               <div className="collab-label">COLLABORATION — コラボ企画</div>
               <div className="collab-pair">
@@ -92,10 +112,57 @@ export default function HomePage() {
           <SectionHeading number="SEC.03" title="Main Match" japanese="本戦情報" />
           <div className="main-match">
             <div className="mm-grid">
-              <div className="mm-cell"><div className="k">DATE / START</div><div className="v">7.28 <small>(火) 21:00 JST</small></div></div>
+              <div className="mm-cell">
+                <div className="k">DATE / START</div>
+                {postponement ? (
+                  <div className="v">延期 <small>日程は後日発表（当初 {postponement.originalDatetimeLabel}）</small></div>
+                ) : (
+                  <div className="v">7.28 <small>(火) 21:00 JST</small></div>
+                )}
+              </div>
               <div className="mm-cell"><div className="k">FORMAT</div><div className="v">チーム対抗<small> 大会配信</small></div></div>
               <div className="mm-cell"><div className="k">PRIZE</div><div className="v">豪華賞品<small> 優勝チームへ</small></div></div>
             </div>
+            {event.rules && (
+              <div className="rules">
+                <div className="casters-label">RULES — 全体ルール（公式解説スライドより）</div>
+                <dl className="rules-overall">
+                  {event.rules.overall.map((item) => (
+                    <div className="rule-item" key={item.label}>
+                      <dt>{item.label}</dt>
+                      <dd>
+                        {item.value}
+                        {item.note && <small>（{item.note}）</small>}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+                <div className="rules-rounds">
+                  {event.rules.rounds.map((round) => (
+                    <div className="rule-round" key={round.round}>
+                      <div className="rr-head">
+                        <span className="rr-no">ROUND {round.round}</span>
+                        <span className={`rr-format${round.format === "個人戦" ? " rr-format--solo" : ""}`}>
+                          {round.format}
+                        </span>
+                      </div>
+                      <div className="rr-name">{round.name}</div>
+                      <div className="rr-meta">
+                        制限時間 <b>{round.timeLimit}</b>
+                      </div>
+                      <p className="rr-detail">{round.detail}</p>
+                      {round.stages && (
+                        <ol className="rr-stages">
+                          {round.stages.map((stage) => (
+                            <li key={stage}>{stage}</li>
+                          ))}
+                        </ol>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             {event.casters && (
               <div className="casters">
                 <div className="casters-label">MC / 解説</div>

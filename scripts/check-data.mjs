@@ -83,6 +83,36 @@ if (event?.casters) {
   if (event.casters.verified !== true) errors.push("event.json: casters は verified:true が必要");
 }
 
+if (event?.postponement) {
+  const p = event.postponement;
+  if (p.postponed !== true) errors.push("event.json: postponement.postponed は true にする（解消時はブロックごと削除）");
+  if (!p.originalDatetimeLabel || !p.reason || !p.rescheduleNote)
+    errors.push("event.json: postponement の originalDatetimeLabel/reason/rescheduleNote が空");
+  if (!/^https:\/\/x\.com\//.test(p.sourceUrl ?? "")) errors.push("event.json: postponement.sourceUrl がx.comのURLでない");
+  if (!SOURCE_LABELS.has(p.source)) errors.push("event.json: postponement.source 不正");
+  if (p.verified !== true) errors.push("event.json: postponement は verified:true が必要");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(p.checkedAt ?? "")) errors.push("event.json: postponement.checkedAt 形式不正");
+}
+
+if (event?.rules) {
+  if (!Array.isArray(event.rules.overall) || event.rules.overall.length === 0)
+    errors.push("event.json: rules.overall が空");
+  for (const item of event.rules.overall ?? []) {
+    if (!item.label || !item.value) errors.push(`event.json: rules.overall ${item.label ?? "(label無し)"} のlabel/valueが空`);
+  }
+  const rounds = event.rules.rounds ?? [];
+  if (rounds.length !== 3) errors.push(`event.json: rules.rounds は3件必要（現在 ${rounds.length}件）`);
+  rounds.forEach((round, index) => {
+    const at = `event.json: rules.rounds[${index}]`;
+    if (round.round !== index + 1) errors.push(`${at}: round は ${index + 1} にする`);
+    if (!round.name || !round.timeLimit || !round.detail) errors.push(`${at}: name/timeLimit/detail が空`);
+    if (!new Set(["チーム戦", "個人戦"]).has(round.format)) errors.push(`${at}: format 不正 ${round.format}`);
+  });
+  if (!SOURCE_LABELS.has(event.rules.source)) errors.push("event.json: rules.source 不正");
+  if (event.rules.verified !== true) errors.push("event.json: rules は verified:true が必要");
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(event.rules.checkedAt ?? "")) errors.push("event.json: rules.checkedAt 形式不正");
+}
+
 if (event?.teams) {
   const memberIds = (event.teams.items ?? []).flatMap((team) => team.memberIds ?? []);
   if (new Set(memberIds).size !== memberIds.length) errors.push("event.json: teams のmemberIdが重複");

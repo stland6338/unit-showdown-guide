@@ -115,9 +115,16 @@ export function LiveSlots({ endpoint, staticStreams }: { endpoint: string; stati
     .filter((item) => item.liveStatus === "upcoming")
     .sort((a, b) => (a.scheduledStartTime ?? "9999").localeCompare(b.scheduledStartTime ?? "9999"));
   const live = liveItems[0] ? dynamicToStream(liveItems[0], staticStreams) : null;
-  const workerNext = upcomingItems.find((item) => item.videoId !== live?.videoId);
+  // 延期発表済みの枠は「次の配信」に出さない（延期日発表後に postponed を外して復帰させる）。
+  const isPostponed = (item: LiveItem) =>
+    staticStreams.some(
+      (stream) =>
+        stream.postponed &&
+        (stream.id === item.streamId || stream.videoId === item.videoId || stream.channelId === item.channelId)
+    );
+  const workerNext = upcomingItems.find((item) => item.videoId !== live?.videoId && !isPostponed(item));
   const staticNext = staticStreams.find(
-    (stream) => stream.liveStatus === "upcoming" && stream.id !== live?.id
+    (stream) => stream.liveStatus === "upcoming" && !stream.postponed && stream.id !== live?.id
   );
   const next = workerNext ? dynamicToStream(workerNext, staticStreams) : staticNext ?? null;
 

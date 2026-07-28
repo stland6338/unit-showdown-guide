@@ -22,7 +22,8 @@ const CHANNELS = [
   { channelId: "UCiJ_Um3KbfF19NzkDYLzZVQ", streamId: "practice-kisara", liverName: "綺沙良" },
   { channelId: "UCiA-trSZfB0i92V_-dyDqBw", streamId: "practice-kuramochi-meruto", liverName: "倉持めると" },
   { channelId: "UCzsCWYuvPUky3-DKzphYbEw", streamId: "practice-shiga-riko", liverName: "司賀りこ" },
-  { channelId: "UCX7YkU9nEeaoZbkVLVajcMg", streamId: "main-showdown", liverName: "にじさんじ公式" },
+  // 本戦は夢追翔チャンネル配信（公式ポスト 2081567819968426129 で確定 / 2026-07-27）。
+  { channelId: "UCTIE7LM5X15NVugV7Krp9Hw", streamId: "main-showdown", liverName: "夢追翔（本戦・神視点）" },
 ];
 
 import { handleOg } from "./og.js";

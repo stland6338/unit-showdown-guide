@@ -29,6 +29,8 @@ export interface ShowdownStream {
   channelIcon?: string | null;
   videoId: string | null;
   kind: "practice" | "main";
+  /** 延期が発表された枠。scheduledStartTime は当初予定のまま保持する */
+  postponed?: boolean;
   scheduledStartTime: string;
   liveStatus: LiveStatus;
   source: SourceLabel;
@@ -37,9 +39,36 @@ export interface ShowdownStream {
   announcements?: Announcement[];
 }
 
+export interface RuleItem {
+  label: string;
+  value: string;
+  note?: string;
+}
+
+export interface RuleRound {
+  round: number;
+  name: string;
+  format: "チーム戦" | "個人戦";
+  timeLimit: string;
+  detail: string;
+  stages?: string[];
+}
+
 export interface EventSource {
   label: string;
   url: string;
+  checkedAt: string;
+}
+
+export interface Postponement {
+  postponed: boolean;
+  /** 当初予定の表示用ラベル（例: 7/28 (火) 21:00） */
+  originalDatetimeLabel: string;
+  reason: string;
+  rescheduleNote: string;
+  sourceUrl: string;
+  source: SourceLabel;
+  verified: boolean;
   checkedAt: string;
 }
 
@@ -48,6 +77,7 @@ export interface EventData {
   hashtags: string[];
   isPr: boolean;
   occasion: string;
+  postponement?: Postponement;
   mainMatch: {
     datetime: string;
     format: string;
@@ -63,6 +93,13 @@ export interface EventData {
   verified: boolean;
   casters?: {
     items: Caster[];
+    source: SourceLabel;
+    verified: boolean;
+    checkedAt: string;
+  };
+  rules?: {
+    overall: RuleItem[];
+    rounds: RuleRound[];
     source: SourceLabel;
     verified: boolean;
     checkedAt: string;

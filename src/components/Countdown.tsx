@@ -16,15 +16,27 @@ function remaining() {
   return [days, hours, minutes, seconds].map((value) => String(value).padStart(2, "0"));
 }
 
-export function Countdown() {
+export function Countdown({ postponed = false }: { postponed?: boolean }) {
   const [digits, setDigits] = useState(["--", "--", "--", "--"]);
 
   useEffect(() => {
+    if (postponed) return;
     const tick = () => setDigits(remaining());
     tick();
     const timer = window.setInterval(tick, 1_000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [postponed]);
+
+  if (postponed) {
+    return (
+      <div className="countdown corner countdown--postponed" aria-live="off">
+        <span className="c3" aria-hidden />
+        <div className="label">MAIN MATCH — 本戦</div>
+        <div className="postponed-word">POSTPONED</div>
+        <div className="postponed-ja">延期 — 延期日等の詳細は後日発表</div>
+      </div>
+    );
+  }
 
   const units = ["DAYS", "HRS", "MIN", "SEC"];
   return (

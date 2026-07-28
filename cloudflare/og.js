@@ -30,6 +30,8 @@ async function loadFontSubset(family, weight, text) {
 }
 
 const MAIN_MATCH_AT = Date.parse("2026-07-28T21:00:00+09:00");
+// 7/28開催分は地震の影響で延期（公式ポスト 2082054214457684201）。延期日発表後に false へ戻し日時を更新する。
+const MAIN_MATCH_POSTPONED = true;
 
 function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`);
@@ -40,6 +42,14 @@ function resolveState(payload, now) {
   const live = (payload?.streams ?? []).filter((s) => s.liveStatus === "live");
   if (live.length > 0) {
     return { tag: "ON AIR", tone: "live", names: live.map((s) => s.liverName), when: "いま配信中！" };
+  }
+  if (MAIN_MATCH_POSTPONED) {
+    return {
+      tag: "EVENT GUIDE",
+      tone: "next",
+      names: ["ライバー14名によるチーム対抗大会"],
+      when: "本戦は延期（日程後日発表）/ 練習アーカイブ公開中",
+    };
   }
   if (MAIN_MATCH_AT > now) {
     return {
@@ -72,7 +82,11 @@ export async function handleOg(request, env, ctx) {
   const isLive = state.tone === "live";
   const accent = isLive ? "#FF4655" : "#F2E900";
   const nameList = state.names.slice(0, 3).map(escapeHtml).join("・") + (state.names.length > 3 ? " ほか" : "");
-  const footer = MAIN_MATCH_AT > now ? `MAIN MATCH まで あと${daysLeft}日` : "MAIN MATCH 開催中・アーカイブ公開中";
+  const footer = MAIN_MATCH_POSTPONED
+    ? "MAIN MATCH は延期 — 続報を待とう"
+    : MAIN_MATCH_AT > now
+      ? `MAIN MATCH まで あと${daysLeft}日`
+      : "MAIN MATCH 開催中・アーカイブ公開中";
 
   const html = `
   <div style="display:flex;flex-direction:column;width:1200px;height:630px;background:#101114;color:#ECEDE8;font-family:'Zen Kaku Gothic New'">
