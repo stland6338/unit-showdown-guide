@@ -92,12 +92,15 @@ export default function HomePage() {
 
       <Hazard thin />
 
-      <section id="live">
-        <div className="wrap">
-          <SectionHeading number="SEC.01" title="Now Live / Next Up" japanese="いまやってる配信・次の配信" />
-          <LiveSlots endpoint={config.liveApiUrl} staticStreams={streams} />
-        </div>
-      </section>
+      {/* 延期発表中はライブ枠の露出を止める（postponement 解消で自動復帰） */}
+      {!postponement && (
+        <section id="live">
+          <div className="wrap">
+            <SectionHeading number="SEC.01" title="Now Live / Next Up" japanese="いまやってる配信・次の配信" />
+            <LiveSlots endpoint={config.liveApiUrl} staticStreams={streams} />
+          </div>
+        </section>
+      )}
 
       <section id="schedule">
         <div className="wrap">
