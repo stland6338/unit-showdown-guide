@@ -897,6 +897,85 @@ details.ann a:hover {
   white-space: nowrap;
 }
 
+/* 振替日程決定ストリップ: 警告色ではなくシグナル色で「決定」を伝える */
+.notice-strip--rescheduled {
+  border-bottom-color: var(--signal);
+  background: color-mix(in srgb, var(--signal) 10%, var(--carbon));
+}
+
+.notice-strip--rescheduled a {
+  color: var(--signal);
+  text-decoration-color: color-mix(in srgb, var(--signal) 50%, transparent);
+}
+
+.notice-strip--rescheduled p b {
+  color: var(--signal);
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: 0.04em;
+}
+
+.notice-badge--rescheduled {
+  background: var(--signal);
+  color: var(--carbon);
+}
+
+/* カウントダウン: 開始時刻経過後 */
+.countdown--started .label {
+  color: var(--live);
+}
+
+/* スケジュール: 振替注記 */
+.rescheduled-note {
+  display: block;
+  font-size: 11px;
+  color: var(--signal-dim);
+}
+
+/* ライブ枠: 同時配信中の他視点 */
+.live-others {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--carbon-3);
+  background: var(--carbon-2);
+}
+
+.live-others-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--live);
+}
+
+.live-others ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.live-others li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 3px 4px;
+  border: 1px solid var(--carbon-3);
+  border-radius: 999px;
+  color: var(--chalk);
+  font-size: 12px;
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.live-others li a:hover {
+  border-color: var(--live);
+}
+
 /* カウントダウン: 延期表示 */
 .countdown--postponed .postponed-word {
   margin-top: 10px;

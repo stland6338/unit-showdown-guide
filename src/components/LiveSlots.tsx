@@ -96,7 +96,9 @@ function StreamSlot({ stream, title, live }: { stream: ShowdownStream; title?: s
           onClick={() =>
             openShareIntent(
               live
-                ? `🔴 ${stream.liverName} がエンドフィールド練習配信中！`
+                ? stream.kind === "main"
+                  ? "🔴 エンドフィールド×にじさんじ UNIT SHOWDOWN 本戦、配信中！"
+                  : `🔴 ${stream.liverName} がエンドフィールド配信中！`
                 : `次の配信は ${stream.liverName}（${formatDateTimeJst(stream.scheduledStartTime)}〜）`
             )
           }
@@ -110,11 +112,25 @@ function StreamSlot({ stream, title, live }: { stream: ShowdownStream; title?: s
 
 export function LiveSlots({ endpoint, staticStreams }: { endpoint: string; staticStreams: ShowdownStream[] }) {
   const payload = useLivePayload(endpoint);
-  const liveItems = (payload?.streams ?? []).filter((item) => item.liveStatus === "live");
+  const mainStream = staticStreams.find((stream) => stream.kind === "main");
+  const isMainItem = (item: LiveItem) =>
+    Boolean(mainStream) &&
+    (item.streamId === mainStream!.id || item.videoId === mainStream!.videoId || item.channelId === mainStream!.channelId);
+  // 本戦モード: 本戦（神視点）が LIVE なら各ライバー視点より優先して ON AIR 枠に出す
+  const liveItems = (payload?.streams ?? [])
+    .filter((item) => item.liveStatus === "live")
+    .sort((a, b) => Number(isMainItem(b)) - Number(isMainItem(a)));
+  // NEXT UP: 開始が早い順。同じ日に本戦と各ライバー視点が並ぶ場合は本戦（待機所）を先に出す
+  const upcomingKey = (item: LiveItem) => {
+    const start = item.scheduledStartTime ?? "9999";
+    return `${start.slice(0, 10)}|${isMainItem(item) ? 0 : 1}|${start}`;
+  };
   const upcomingItems = (payload?.streams ?? [])
     .filter((item) => item.liveStatus === "upcoming")
-    .sort((a, b) => (a.scheduledStartTime ?? "9999").localeCompare(b.scheduledStartTime ?? "9999"));
+    .sort((a, b) => upcomingKey(a).localeCompare(upcomingKey(b)));
   const live = liveItems[0] ? dynamicToStream(liveItems[0], staticStreams) : null;
+  // 同時配信中の他視点（本戦当日はライバー各自の視点配信が並ぶ想定）
+  const otherLive = liveItems.slice(1).map((item) => ({ item, stream: dynamicToStream(item, staticStreams) }));
   // 延期発表済みの枠は「次の配信」に出さない（延期日発表後に postponed を外して復帰させる）。
   const isPostponed = (item: LiveItem) =>
     staticStreams.some(
@@ -153,6 +169,21 @@ export function LiveSlots({ endpoint, staticStreams }: { endpoint: string; stati
           </div>
         )}
       </div>
+      {otherLive.length > 0 && (
+        <div className="live-others" aria-label="同時配信中の他の視点">
+          <span className="live-others-label">ALSO LIVE — 他の視点（{otherLive.length}）</span>
+          <ul>
+            {otherLive.map(({ item, stream }) => (
+              <li key={item.videoId}>
+                <a href={streamHref(stream)} target="_blank" rel="noopener noreferrer" title={item.title ?? stream.liverName}>
+                  <Avatar src={stream.channelIcon} size={28} />
+                  <span>{stream.liverName}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <p className="sample-note">
         {`// ${endpoint ? "配信状況は5分間隔で自動更新。取得失敗時は静的スケジュールを維持します" : "ライブ検知は公開準備中。静的スケジュールを表示しています"}`}
       </p>

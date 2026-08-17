@@ -92,6 +92,33 @@ if (event?.postponement) {
   if (!SOURCE_LABELS.has(p.source)) errors.push("event.json: postponement.source 不正");
   if (p.verified !== true) errors.push("event.json: postponement は verified:true が必要");
   if (!/^\d{4}-\d{2}-\d{2}$/.test(p.checkedAt ?? "")) errors.push("event.json: postponement.checkedAt 形式不正");
+
+  const mainStream = streams.find((s) => s.kind === "main");
+  if (p.rescheduled) {
+    // 振替日程確定: main 枠は postponed を外し、rescheduledFrom に当初日時を持たせる
+    const r = p.rescheduled;
+    if (!r.datetimeLabel) errors.push("event.json: postponement.rescheduled.datetimeLabel が空");
+    if (!/^https:\/\/x\.com\//.test(r.sourceUrl ?? "")) errors.push("event.json: postponement.rescheduled.sourceUrl がx.comのURLでない");
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(r.checkedAt ?? "")) errors.push("event.json: postponement.rescheduled.checkedAt 形式不正");
+    if (r.preMeasurement) {
+      if (!r.preMeasurement.datetimeLabel) errors.push("event.json: preMeasurement.datetimeLabel が空");
+      if (!Array.isArray(r.preMeasurement.liverNames) || r.preMeasurement.liverNames.length === 0)
+        errors.push("event.json: preMeasurement.liverNames が空");
+      const knownNames = new Set(streams.map((s) => s.liverName));
+      for (const name of r.preMeasurement.liverNames ?? []) {
+        if (!knownNames.has(name)) errors.push(`event.json: preMeasurement.liverNames の ${name} が schedule.seed.json に存在しない`);
+      }
+    }
+    if (mainStream?.postponed) errors.push("schedule.seed.json: 振替日程確定後は main の postponed を外す");
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+09:00$/.test(mainStream?.rescheduledFrom ?? ""))
+      errors.push("schedule.seed.json: 振替日程確定後は main に rescheduledFrom（当初日時）を入れる");
+    if (event.mainMatch?.originalDatetime !== mainStream?.rescheduledFrom)
+      errors.push("event.json: mainMatch.originalDatetime が schedule.seed.json の rescheduledFrom と不一致");
+    if (event.mainMatch?.datetime === mainStream?.rescheduledFrom)
+      errors.push("event.json: mainMatch.datetime が当初日時のまま（振替後の日時に更新する）");
+  } else if (mainStream && mainStream.postponed !== true) {
+    errors.push("schedule.seed.json: 延期中（振替未発表）は main に postponed:true を付ける");
+  }
 }
 
 if (event?.rules) {

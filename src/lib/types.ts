@@ -31,6 +31,8 @@ export interface ShowdownStream {
   kind: "practice" | "main";
   /** 延期が発表された枠。scheduledStartTime は当初予定のまま保持する */
   postponed?: boolean;
+  /** 振替日程が確定した枠。当初予定の日時（+09:00 ISO8601）。scheduledStartTime は振替後の日時 */
+  rescheduledFrom?: string;
   scheduledStartTime: string;
   liveStatus: LiveStatus;
   source: SourceLabel;
@@ -60,6 +62,20 @@ export interface EventSource {
   checkedAt: string;
 }
 
+export interface PreMeasurement {
+  /** 事前計測配信の表示用ラベル（例: 8/16 (日) 18:30） */
+  datetimeLabel: string;
+  liverNames: string[];
+}
+
+export interface Reschedule {
+  /** 振替後の表示用ラベル（例: 8/18 (火) 21:00） */
+  datetimeLabel: string;
+  sourceUrl: string;
+  checkedAt: string;
+  preMeasurement?: PreMeasurement;
+}
+
 export interface Postponement {
   postponed: boolean;
   /** 当初予定の表示用ラベル（例: 7/28 (火) 21:00） */
@@ -67,6 +83,8 @@ export interface Postponement {
   reason: string;
   rescheduleNote: string;
   sourceUrl: string;
+  /** 振替日程が発表されたら設定する。未設定の間は「日程後日発表」表示 */
+  rescheduled?: Reschedule;
   source: SourceLabel;
   verified: boolean;
   checkedAt: string;
@@ -80,6 +98,10 @@ export interface EventData {
   postponement?: Postponement;
   mainMatch: {
     datetime: string;
+    /** 表示用ラベル（例: 8/18 (火) 21:00） */
+    datetimeLabel?: string;
+    /** 延期前の当初日時（+09:00 ISO8601） */
+    originalDatetime?: string;
     format: string;
     prize: string;
     teams: unknown;

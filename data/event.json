@@ -9,18 +9,31 @@
     "isPr": true,
     "occasion": "『アークナイツ：エンドフィールド』ハーフアニバーサリー記念",
     "postponement": {
-      "$comment": "公式ポスト（2082054214457684201）で2026-07-28に延期を確認。延期日は未発表",
+      "$comment": "公式ポスト（2082054214457684201）で2026-07-28に延期を確認。振替日程は公式ポスト（2088083337810456868 / 2026-08-14投稿）で 8/18(火) 21:00 と発表、2026-08-17 に本文を直接確認。rescheduled が入ると UI は「振替日程決定」表示になり、ライブ枠・カウントダウンが復帰する",
       "postponed": true,
       "originalDatetimeLabel": "7/28 (火) 21:00",
       "reason": "7/28に発生した地震の状況を鑑みた公式判断",
-      "rescheduleNote": "延期日等の詳細は後日発表",
+      "rescheduleNote": "振替配信は 8/18 (火) 21:00 に決定",
       "sourceUrl": "https://x.com/nijisanji_app/status/2082054214457684201",
+      "rescheduled": {
+        "datetimeLabel": "8/18 (火) 21:00",
+        "sourceUrl": "https://x.com/nijisanji_app/status/2088083337810456868",
+        "checkedAt": "2026-08-17",
+        "preMeasurement": {
+          "$comment": "同ポストで告知。4名はスケジュールの都合で本戦に先立ち各チャンネルで事前計測配信を実施（アーカイブは検知Workerの recentArchives で確認済み）",
+          "datetimeLabel": "8/16 (日) 18:30",
+          "liverNames": ["鏑木ろこ", "綺沙良", "倉持めると", "珠乃井ナナ"]
+        }
+      },
       "source": "official",
       "verified": true,
-      "checkedAt": "2026-07-28"
+      "checkedAt": "2026-08-17"
     },
     "mainMatch": {
-      "datetime": "2026-07-28T21:00:00+09:00",
+      "$comment": "振替後の日時。当初 2026-07-28T21:00:00+09:00（延期）",
+      "datetime": "2026-08-18T21:00:00+09:00",
+      "datetimeLabel": "8/18 (火) 21:00",
+      "originalDatetime": "2026-07-28T21:00:00+09:00",
       "format": "チーム対抗大会（配信）",
       "prize": "優勝チームに豪華賞品",
       "teams": null,
@@ -53,6 +66,11 @@
         "label": "延期のお知らせ",
         "url": "https://x.com/nijisanji_app/status/2082054214457684201",
         "checkedAt": "2026-07-28"
+      },
+      {
+        "label": "振替日程のお知らせ（8/18 本戦・待機所）",
+        "url": "https://x.com/nijisanji_app/status/2088083337810456868",
+        "checkedAt": "2026-08-17"
       }
     ],
     "source": "official",

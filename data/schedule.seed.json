@@ -276,15 +276,15 @@
       ]
     },
     {
-      "$comment": "配信先は夢追翔チャンネル（公式ポスト 2081567819968426129 / 2026-07-27確認）。7/28開催分は地震の影響で延期（公式ポスト 2082054214457684201 / 2026-07-28確認）。延期日は未発表のため日時は当初予定のまま保持。",
+      "$comment": "配信先は夢追翔チャンネル（公式ポスト 2081567819968426129 / 2026-07-27確認）。7/28開催分は地震の影響で延期（公式ポスト 2082054214457684201）。振替日程 8/18(火) 21:00 と新待機所 A7lY0WOsH8M は公式ポスト 2088083337810456868 のリンク先で 2026-08-17 に確認（旧待機所 Z6hh_Rz8LAw）。",
       "id": "main-showdown",
-      "postponed": true,
+      "rescheduledFrom": "2026-07-28T21:00:00+09:00",
       "liverName": "にじさんじ UNIT SHOWDOWN 本戦",
       "channelId": "UCTIE7LM5X15NVugV7Krp9Hw",
       "channelUrl": "https://www.youtube.com/channel/UCTIE7LM5X15NVugV7Krp9Hw",
-      "videoId": "Z6hh_Rz8LAw",
+      "videoId": "A7lY0WOsH8M",
       "kind": "main",
-      "scheduledStartTime": "2026-07-28T21:00:00+09:00",
+      "scheduledStartTime": "2026-08-18T21:00:00+09:00",
       "liveStatus": "upcoming",
       "source": "official",
       "verified": true

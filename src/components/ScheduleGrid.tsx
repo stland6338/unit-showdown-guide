@@ -41,6 +41,11 @@ export function ScheduleGrid({ endpoint, streams }: { endpoint: string; streams:
               <time dateTime={stream.scheduledStartTime}>
                 延期 — 日程後日発表（当初 {formatDateTimeJst(stream.scheduledStartTime)} JST）
               </time>
+            ) : stream.rescheduledFrom ? (
+              <time dateTime={stream.scheduledStartTime}>
+                {formatDateTimeJst(stream.scheduledStartTime)} JST
+                <small className="rescheduled-note"> 振替（当初 {formatDateTimeJst(stream.rescheduledFrom)}）</small>
+              </time>
             ) : (
               <time dateTime={stream.scheduledStartTime}>{formatDateTimeJst(stream.scheduledStartTime)} JST</time>
             )}

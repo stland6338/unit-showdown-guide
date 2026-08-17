@@ -29,9 +29,14 @@ async function loadFontSubset(family, weight, text) {
   return fontResponse.arrayBuffer();
 }
 
-const MAIN_MATCH_AT = Date.parse("2026-07-28T21:00:00+09:00");
-// 7/28開催分は地震の影響で延期（公式ポスト 2082054214457684201）。延期日発表後に false へ戻し日時を更新する。
-const MAIN_MATCH_POSTPONED = true;
+// 7/28開催分は地震の影響で延期（公式ポスト 2082054214457684201）→ 8/18(火) 21:00 に振替（公式ポスト 2088083337810456868）。
+const MAIN_MATCH_AT = Date.parse("2026-08-18T21:00:00+09:00");
+const MAIN_MATCH_LABEL = "8/18(火) 21:00";
+// 振替日程が未発表の間だけ true にする（現在は振替確定済み）。
+const MAIN_MATCH_POSTPONED = false;
+// 本戦当日ライブ判定: 本戦（神視点）の videoId / channelId。ON AIR 表示で本戦を優先する。
+const MAIN_MATCH_VIDEO_ID = "A7lY0WOsH8M";
+const MAIN_MATCH_CHANNEL_ID = "UCTIE7LM5X15NVugV7Krp9Hw";
 
 function escapeHtml(text) {
   return String(text).replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`);
@@ -40,6 +45,17 @@ function escapeHtml(text) {
 /** 表示状態を決める: live中はON AIR、それ以外は企画全体の汎用カード */
 function resolveState(payload, now) {
   const live = (payload?.streams ?? []).filter((s) => s.liveStatus === "live");
+  const mainLive = live.some((s) => s.videoId === MAIN_MATCH_VIDEO_ID || s.channelId === MAIN_MATCH_CHANNEL_ID);
+  if (mainLive) {
+    // 本戦モード: 各ライバー視点が同時に並んでも本戦を最優先で出す
+    const povNames = live.filter((s) => s.channelId !== MAIN_MATCH_CHANNEL_ID).map((s) => s.liverName);
+    return {
+      tag: "ON AIR",
+      tone: "live",
+      names: ["UNIT SHOWDOWN 本戦", ...povNames],
+      when: povNames.length > 0 ? `本戦配信中！ 各視点 ${povNames.length}名も配信中` : "本戦配信中！",
+    };
+  }
   if (live.length > 0) {
     return { tag: "ON AIR", tone: "live", names: live.map((s) => s.liverName), when: "いま配信中！" };
   }
@@ -56,7 +72,7 @@ function resolveState(payload, now) {
       tag: "EVENT GUIDE",
       tone: "next",
       names: ["ライバー14名によるチーム対抗大会"],
-      when: "本戦 7/28(火) 21:00 / 練習配信 7/18–7/27",
+      when: `本戦 ${MAIN_MATCH_LABEL}（振替）/ 練習アーカイブ公開中`,
     };
   }
   return { tag: "EVENT GUIDE", tone: "next", names: ["チーム対抗大会"], when: "本戦終了・アーカイブ公開中" };

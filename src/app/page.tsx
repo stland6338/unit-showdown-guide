@@ -8,6 +8,7 @@ import { TweetEmbed } from "@/components/TweetEmbed";
 import { Hazard, SectionHeading } from "@/components/SiteChrome";
 import { config } from "@/lib/config";
 import { getEvent, getFact, getStreams } from "@/lib/data";
+import { formatDateTimeJst, formatTimelineDate } from "@/lib/format";
 
 export default function HomePage() {
   const event = getEvent();
@@ -20,10 +21,16 @@ export default function HomePage() {
   const currentVersion = getFact("currentVersion");
 
   const postponement = event.postponement?.postponed ? event.postponement : null;
+  const rescheduled = postponement?.rescheduled ?? null;
+  // 延期発表済みで振替日程が未発表の間だけ「日程後日発表」モード
+  const awaitingReschedule = Boolean(postponement) && !rescheduled;
+  const mainDateLabel = event.mainMatch.datetimeLabel ?? formatDateTimeJst(event.mainMatch.datetime);
+  const mainDate = formatTimelineDate(event.mainMatch.datetime);
+  const preMeasurement = rescheduled?.preMeasurement ?? null;
 
   return (
     <>
-      {postponement && (
+      {postponement && awaitingReschedule && (
         <div className="notice-strip" role="status">
           <div className="wrap">
             <span className="notice-badge">延期</span>
@@ -33,6 +40,25 @@ export default function HomePage() {
             </p>
             <a href={postponement.sourceUrl} target="_blank" rel="noopener noreferrer">
               公式のお知らせ（{postponement.checkedAt} 確認）→
+            </a>
+          </div>
+        </div>
+      )}
+      {postponement && rescheduled && (
+        <div className="notice-strip notice-strip--rescheduled" role="status">
+          <div className="wrap">
+            <span className="notice-badge notice-badge--rescheduled">振替決定</span>
+            <p>
+              {postponement.originalDatetimeLabel} 開催予定だった本戦は{postponement.reason}により延期となり、
+              振替配信は <b>{rescheduled.datetimeLabel}</b> に決定しました。
+              {preMeasurement && (
+                <>
+                  {" "}※{preMeasurement.liverNames.join("・")}の{preMeasurement.liverNames.length}名は {preMeasurement.datetimeLabel} より各チャンネルで事前計測配信を実施（アーカイブ公開中）。
+                </>
+              )}
+            </p>
+            <a href={rescheduled.sourceUrl} target="_blank" rel="noopener noreferrer">
+              振替日程の公式お知らせ（{rescheduled.checkedAt} 確認）→
             </a>
           </div>
         </div>
@@ -56,16 +82,16 @@ export default function HomePage() {
             にじさんじライバー14名による <em>チーム対抗大会</em> 非公式観戦ガイド
           </p>
           <div className="hero-meta">
-            {postponement ? (
+            {awaitingReschedule ? (
               <span>本戦 <b>延期</b>（日程後日発表）</span>
             ) : (
-              <span>本戦 <b>7/28 (火) 21:00</b> JST</span>
+              <span>本戦 <b>{mainDateLabel}</b> JST{rescheduled ? "（振替）" : ""}</span>
             )}
             <span>練習配信 <b>7/18 – 7/27</b></span>
             <span>参加 <b>14</b> LIVERS</span>
           </div>
           <div className="hero-row">
-            <Countdown postponed={Boolean(postponement)} />
+            <Countdown target={event.mainMatch.datetime} postponed={awaitingReschedule} />
             <aside className="collab-card" aria-label="コラボ企画の概要">
               <div className="collab-label">COLLABORATION — コラボ企画</div>
               <div className="collab-pair">
@@ -92,8 +118,8 @@ export default function HomePage() {
 
       <Hazard thin />
 
-      {/* 延期発表中はライブ枠の露出を止める（postponement 解消で自動復帰） */}
-      {!postponement && (
+      {/* 延期発表中（振替未発表）はライブ枠の露出を止める。振替日程確定で自動復帰 */}
+      {!awaitingReschedule && (
         <section id="live">
           <div className="wrap">
             <SectionHeading number="SEC.01" title="Now Live / Next Up" japanese="いまやってる配信・次の配信" />
@@ -117,10 +143,16 @@ export default function HomePage() {
             <div className="mm-grid">
               <div className="mm-cell">
                 <div className="k">DATE / START</div>
-                {postponement ? (
+                {awaitingReschedule && postponement ? (
                   <div className="v">延期 <small>日程は後日発表（当初 {postponement.originalDatetimeLabel}）</small></div>
                 ) : (
-                  <div className="v">7.28 <small>(火) 21:00 JST</small></div>
+                  <div className="v">
+                    {mainDate.date.replace(/^0/, "")}{" "}
+                    <small>
+                      {formatDateTimeJst(event.mainMatch.datetime).replace(/^\d+\/\d+/, "")} JST
+                      {rescheduled && postponement ? ` — 振替（当初 ${postponement.originalDatetimeLabel}）` : ""}
+                    </small>
+                  </div>
                 )}
               </div>
               <div className="mm-cell"><div className="k">FORMAT</div><div className="v">チーム対抗<small> 大会配信</small></div></div>

@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-const TARGET = Date.parse("2026-07-28T21:00:00+09:00");
+const DEFAULT_TARGET = "2026-08-18T21:00:00+09:00";
 
-function remaining() {
-  let delta = Math.max(0, TARGET - Date.now());
+function remaining(target: number) {
+  let delta = Math.max(0, target - Date.now());
   const days = Math.floor(delta / 86_400_000);
   delta -= days * 86_400_000;
   const hours = Math.floor(delta / 3_600_000);
@@ -16,16 +16,28 @@ function remaining() {
   return [days, hours, minutes, seconds].map((value) => String(value).padStart(2, "0"));
 }
 
-export function Countdown({ postponed = false }: { postponed?: boolean }) {
+interface CountdownProps {
+  /** 本戦開始日時（+09:00 ISO8601）。data/event.json の mainMatch.datetime を渡す */
+  target?: string;
+  /** 延期発表済みで振替日程が未発表のときは数字を止めて POSTPONED 表示 */
+  postponed?: boolean;
+}
+
+export function Countdown({ target = DEFAULT_TARGET, postponed = false }: CountdownProps) {
+  const targetMs = Date.parse(target);
   const [digits, setDigits] = useState(["--", "--", "--", "--"]);
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    if (postponed) return;
-    const tick = () => setDigits(remaining());
+    if (postponed || Number.isNaN(targetMs)) return;
+    const tick = () => {
+      setDigits(remaining(targetMs));
+      setStarted(Date.now() >= targetMs);
+    };
     tick();
     const timer = window.setInterval(tick, 1_000);
     return () => window.clearInterval(timer);
-  }, [postponed]);
+  }, [postponed, targetMs]);
 
   if (postponed) {
     return (
@@ -40,9 +52,9 @@ export function Countdown({ postponed = false }: { postponed?: boolean }) {
 
   const units = ["DAYS", "HRS", "MIN", "SEC"];
   return (
-    <div className="countdown corner" aria-live="off">
+    <div className={`countdown corner${started ? " countdown--started" : ""}`} aria-live="off">
       <span className="c3" aria-hidden />
-      <div className="label">MAIN MATCH IN — 本戦まで</div>
+      <div className="label">{started ? "MAIN MATCH — 本戦開始時刻を過ぎました" : "MAIN MATCH IN — 本戦まで"}</div>
       <div className="digits">
         {digits.map((digit, index) => (
           <span className="digit-pair" key={units[index]}>

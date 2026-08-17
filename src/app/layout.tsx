@@ -37,14 +37,14 @@ export const metadata: Metadata = {
     locale: "ja_JP",
     siteName: "にじユニショーダウン 非公式観戦ガイド",
     title: "にじユニショーダウン 非公式観戦ガイド",
-    description: "14名の練習配信と本戦情報を追える、非公式の観戦ガイド。本戦は延期（日程後日発表）。",
+    description: "14名の練習配信と本戦情報を追える、非公式の観戦ガイド。本戦は 8/18(火) 21:00 に振替開催。",
     url: config.siteUrl,
     ...(config.ogImageUrl ? { images: [{ url: config.ogImageUrl, width: 1200, height: 630 }] } : {}),
   },
   twitter: {
     card: config.ogImageUrl ? "summary_large_image" : "summary",
     title: "にじユニショーダウン 非公式観戦ガイド",
-    description: "14名の練習配信と本戦情報を追える、非公式の観戦ガイド。本戦は延期（日程後日発表）。",
+    description: "14名の練習配信と本戦情報を追える、非公式の観戦ガイド。本戦は 8/18(火) 21:00 に振替開催。",
     ...(config.ogImageUrl ? { images: [config.ogImageUrl] } : {}),
   },
 };

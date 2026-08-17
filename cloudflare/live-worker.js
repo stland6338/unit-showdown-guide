@@ -26,6 +26,10 @@ const CHANNELS = [
   { channelId: "UCTIE7LM5X15NVugV7Krp9Hw", streamId: "main-showdown", liverName: "夢追翔（本戦・神視点）" },
 ];
 
+// 直近5件のアップロードに埋もれても必ず状態を取りに行く枠（本戦待機所など）。
+// videoId は data/schedule.seed.json と同期する。8/18(火) 21:00 本戦（公式ポスト 2088083337810456868）。
+const PINNED_VIDEOS = [{ videoId: "A7lY0WOsH8M", channelId: "UCTIE7LM5X15NVugV7Krp9Hw" }];
+
 import { handleOg } from "./og.js";
 
 const KEYWORDS = ["エンドフィールド", "endfield", "ユニショーダウン", "unit showdown", "アークナイツ"];
@@ -78,6 +82,15 @@ async function refresh(env) {
     } catch {
       // 1chの失敗で全体を止めない。
     }
+  }
+
+  // 1b) 固定監視枠を追加する（プレイリスト取得の成否に関わらず videos.list に含める）。
+  for (const pinned of PINNED_VIDEOS) {
+    if (owner.has(pinned.videoId)) continue;
+    const channel = CHANNELS.find((entry) => entry.channelId === pinned.channelId);
+    if (!channel) continue;
+    videoIds.push(pinned.videoId);
+    owner.set(pinned.videoId, channel);
   }
 
   // 2) videos.list（50件/リクエスト）で状態と開始・終了時刻を取得する。
