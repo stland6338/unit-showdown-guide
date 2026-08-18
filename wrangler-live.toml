@@ -6,7 +6,8 @@ main = "cloudflare/live-worker.js"
 compatibility_date = "2026-07-01"
 
 [triggers]
-crons = ["*/5 * * * *"]
+# 2026-08-18 サイト閉鎖に伴いライブ検知 cron を停止（再開するときは ["*/5 * * * *"] に戻す）
+crons = []
 
 [[kv_namespaces]]
 binding = "LIVE_KV"

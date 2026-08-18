@@ -6,6 +6,9 @@
 - 公開URL: https://unit-showdown-guide.pages.dev/
 - ライブ検知API: https://showdown-live.stland6338.workers.dev/api/live
 
+> **2026-08-18 公開終了。** 全ページは「公開終了」案内（`src/lib/config.ts` の `siteClosed: true`）に差し替え済み。
+> Worker 2 基の cron・毎朝の再ビルドは停止、Pages / Workers / KV / secrets は残置。復元・完全撤去の手順は `TODO.md` Phase 6。
+
 ## 企画概要（公式発表・2026-07-16確認済み）
 
 - **企画名**: エンドフィールド×にじさんじ UNIT SHOWDOWN（#PR施策）

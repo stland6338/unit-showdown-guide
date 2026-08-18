@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Avatar } from "@/components/Avatar";
+import { ClosedNotice } from "@/components/ClosedNotice";
 import { Countdown } from "@/components/Countdown";
 import { LiveSlots } from "@/components/LiveSlots";
 import { ShareButton } from "@/components/ShareButton";
@@ -11,6 +12,9 @@ import { getEvent, getFact, getStreams } from "@/lib/data";
 import { formatDateTimeJst, formatTimelineDate } from "@/lib/format";
 
 export default function HomePage() {
+  // 閉鎖モード: 企画情報・ライブ検知を出さず案内だけ返す
+  if (config.siteClosed) return <ClosedNotice />;
+
   const event = getEvent();
   const streams = getStreams();
   const practice = streams.filter((stream) => stream.kind === "practice");

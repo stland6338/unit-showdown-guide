@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
+import { ClosedNotice, closedMetadata } from "@/components/ClosedNotice";
 import { FactList, SourceBadge } from "@/components/FactList";
 import { SectionHeading } from "@/components/SiteChrome";
+import { config } from "@/lib/config";
 import { getEndfieldFacts, getOfficialLinks } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "アークナイツ：エンドフィールドとは",
-  description: "アークナイツ：エンドフィールドの概要、リリース情報、対応機種、現行バージョンを公式情報に基づいて紹介します。",
-};
+export const metadata: Metadata = config.siteClosed
+  ? closedMetadata
+  : {
+      title: "アークナイツ：エンドフィールドとは",
+      description: "アークナイツ：エンドフィールドの概要、リリース情報、対応機種、現行バージョンを公式情報に基づいて紹介します。",
+    };
 
 export default function EndfieldPage() {
+  if (config.siteClosed) return <ClosedNotice />;
+
   const facts = getEndfieldFacts();
   const links = getOfficialLinks();
   const overview = facts.filter((fact) => ["title", "genre"].includes(fact.key));

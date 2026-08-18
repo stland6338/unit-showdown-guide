@@ -14,7 +14,8 @@ binding = "BROWSER"
 binding = "AI"
 
 [triggers]
-crons = ["*/20 * * * *"]
+# 2026-08-18 サイト閉鎖に伴い監視 cron を停止（再開するときは ["*/20 * * * *"] に戻す）
+crons = []
 
 # Worker→Worker は workers.dev 直fetch不可（error 1042）のため service binding 経由
 [[services]]

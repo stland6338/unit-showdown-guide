@@ -25,26 +25,36 @@ const mono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const SITE_NAME = "にじユニショーダウン 非公式観戦ガイド";
+// 閉鎖中は title / description / OGP を「公開終了」に切り替える（動的 OGP 画像は config 側で空になる）
+const defaultTitle = config.siteClosed ? `${SITE_NAME}（公開終了）` : SITE_NAME;
+const description = config.siteClosed
+  ? "にじユニショーダウン 非公式観戦ガイドは 2026年8月18日 をもって公開を終了しました。ご覧いただきありがとうございました。"
+  : "エンドフィールド×にじさんじ UNIT SHOWDOWNの非公式観戦ガイド。練習配信スケジュールと本戦情報をまとめています。";
+const socialDescription = config.siteClosed
+  ? description
+  : "14名の練習配信と本戦情報を追える、非公式の観戦ガイド。本戦は 8/18(火) 21:00 に振替開催。";
+
 export const metadata: Metadata = {
   metadataBase: new URL(config.siteUrl),
   title: {
-    default: "にじユニショーダウン 非公式観戦ガイド",
-    template: "%s | にじユニショーダウン 非公式観戦ガイド",
+    default: defaultTitle,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: "エンドフィールド×にじさんじ UNIT SHOWDOWNの非公式観戦ガイド。練習配信スケジュールと本戦情報をまとめています。",
+  description,
   openGraph: {
     type: "website",
     locale: "ja_JP",
-    siteName: "にじユニショーダウン 非公式観戦ガイド",
-    title: "にじユニショーダウン 非公式観戦ガイド",
-    description: "14名の練習配信と本戦情報を追える、非公式の観戦ガイド。本戦は 8/18(火) 21:00 に振替開催。",
+    siteName: SITE_NAME,
+    title: defaultTitle,
+    description: socialDescription,
     url: config.siteUrl,
     ...(config.ogImageUrl ? { images: [{ url: config.ogImageUrl, width: 1200, height: 630 }] } : {}),
   },
   twitter: {
     card: config.ogImageUrl ? "summary_large_image" : "summary",
-    title: "にじユニショーダウン 非公式観戦ガイド",
-    description: "14名の練習配信と本戦情報を追える、非公式の観戦ガイド。本戦は 8/18(火) 21:00 に振替開催。",
+    title: defaultTitle,
+    description: socialDescription,
     ...(config.ogImageUrl ? { images: [config.ogImageUrl] } : {}),
   },
 };

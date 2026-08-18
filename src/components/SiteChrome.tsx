@@ -15,11 +15,14 @@ export function SiteHeader() {
             UNIT SHOWDOWN FAN GUIDE
             <small>UNOFFICIAL — 非公式観戦ガイド</small>
           </Link>
-          <nav className="gnav" aria-label="メインナビゲーション">
-            <Link href="/schedule/">SCHEDULE</Link>
-            <Link href="/#main">MAIN MATCH</Link>
-            <Link href="/endfield/">ENDFIELD?</Link>
-          </nav>
+          {/* 閉鎖中は各ページが同じ案内になるためナビを出さない */}
+          {!config.siteClosed && (
+            <nav className="gnav" aria-label="メインナビゲーション">
+              <Link href="/schedule/">SCHEDULE</Link>
+              <Link href="/#main">MAIN MATCH</Link>
+              <Link href="/endfield/">ENDFIELD?</Link>
+            </nav>
+          )}
         </div>
       </header>
       <Hazard />

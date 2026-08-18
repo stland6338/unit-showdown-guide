@@ -40,9 +40,15 @@
   - Countdown を data 駆動化、ライブ枠復帰、お知らせ帯を「振替決定」に、8/16 事前計測4名（鏑木ろこ・綺沙良・倉持めると・珠乃井ナナ）を帯に記載
   - 本戦モード: LiveSlots で本戦 LIVE を最優先 + 同時配信中の他視点リスト、NEXT UP は同日なら本戦優先。og.js も本戦優先・8/18 表記
   - live-worker.js に `PINNED_VIDEOS`（待機所は直近5件のアップロードに埋もれるため固定監視）
-- [ ] **要デプロイ**: `npx wrangler deploy -c wrangler-live.toml`（og.js の 8/18 表記と PINNED_VIDEOS を反映。2026-08-17 は Claude Code 側の権限でブロックされ未実行）
-- [ ] 8/18 本戦当日: 21:00 前後に `/api/live` で本戦 LIVE 検知と ON AIR 表示を確認
-- [ ] 8/19 以降: Cron 停止（`wrangler-live.toml` の crons を外して再デプロイ）、アーカイブ静的化、sentinel 停止
+- [x] ~~要デプロイ~~ → 2026-08-18 の閉鎖デプロイに含めて反映済み（cron は同時に停止）
+- [ ] ~~8/18 本戦当日: `/api/live` で本戦 LIVE 検知と ON AIR 表示を確認~~（閉鎖のため対象外）
+
+## Phase 6: 閉鎖（2026-08-18）
+- [x] `src/lib/config.ts` の `siteClosed: true` で全ページを「公開終了」案内に差し替え（ナビ非表示・OGP は summary・sitemap は `/` のみ・`public/_redirects` で旧ページ→`/`）
+- [x] `showdown-sentinel` / `showdown-live` の cron を `crons = []` で停止して再デプロイ（Worker 本体・KV・secrets は残置。`/api/live` は KV キャッシュを返すだけ）
+- [x] `.github/workflows/daily-deploy.yml` の毎朝 schedule を停止（push / workflow_dispatch は残す）
+- 復元手順: `siteClosed: false` → 両 toml の crons を戻す → `npx wrangler deploy -c wrangler-*.toml` → push
+- 完全撤去する場合: `npx wrangler pages project delete unit-showdown-guide` / `npx wrangler delete -c wrangler-live.toml` / `npx wrangler delete -c wrangler-sentinel.toml` / KV 2 つ削除 / GitHub リポジトリをアーカイブ / GCP `unit-showdown-guide-2026` の API キー無効化
 
 ## 人間（とらんど）の承認が必要なもの
 - [x] `YOUTUBE_API_KEY` の安全な作成・Worker secret設定

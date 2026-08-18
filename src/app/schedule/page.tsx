@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
+import { ClosedNotice, closedMetadata } from "@/components/ClosedNotice";
 import { ScheduleGrid } from "@/components/ScheduleGrid";
 import { SectionHeading } from "@/components/SiteChrome";
 import { config } from "@/lib/config";
 import { getStreams } from "@/lib/data";
 
-export const metadata: Metadata = {
-  title: "配信スケジュール",
-  description: "UNIT SHOWDOWNの練習配信14件と本戦を、LIVE・UPCOMING・ARCHIVEの状態つきで一覧表示します。",
-};
+export const metadata: Metadata = config.siteClosed
+  ? closedMetadata
+  : {
+      title: "配信スケジュール",
+      description: "UNIT SHOWDOWNの練習配信14件と本戦を、LIVE・UPCOMING・ARCHIVEの状態つきで一覧表示します。",
+    };
 
 export default function SchedulePage() {
+  if (config.siteClosed) return <ClosedNotice />;
+
   const streams = getStreams();
   return (
     <>
