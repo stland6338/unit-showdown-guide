@@ -249,6 +249,8 @@ async function runCheck(env, { forceMail = false } = {}) {
 
 export default {
   async scheduled(_event, env, ctx) {
+    // 2026-08-18 サイト閉鎖: cron 削除の伝播遅延で発火しても監視・メールは行わない
+    if (env.SITE_CLOSED === "1") return;
     ctx.waitUntil(
       runCheck(env).catch((error) => {
         console.error("sentinel check failed", error instanceof Error ? error.message : String(error));

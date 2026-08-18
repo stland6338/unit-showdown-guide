@@ -167,6 +167,8 @@ async function refresh(env) {
 
 export default {
   async scheduled(_event, env, ctx) {
+    // 2026-08-18 サイト閉鎖: cron 削除の伝播遅延で発火しても YouTube API は呼ばない
+    if (env.SITE_CLOSED === "1") return;
     ctx.waitUntil(
       refresh(env).catch((error) => {
         console.error("live refresh failed", error instanceof Error ? error.message : String(error));

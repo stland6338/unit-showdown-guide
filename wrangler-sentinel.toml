@@ -27,6 +27,8 @@ binding = "SENTINEL_KV"
 id = "e148b2a28712464eab9ce6a0b930282b"
 
 [vars]
+# 2026-08-18 サイト閉鎖: "1" の間は scheduled() が何もしない（cron 削除の伝播遅延対策）。復元時は削除
+SITE_CLOSED = "1"
 MAIL_TO = "s7015518@gmail.com"
 # change: 状態変化時+日次サマリ / every: 毎チェック送信
 MAIL_MODE = "change"

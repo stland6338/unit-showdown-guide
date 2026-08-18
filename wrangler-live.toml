@@ -9,6 +9,10 @@ compatibility_date = "2026-07-01"
 # 2026-08-18 サイト閉鎖に伴いライブ検知 cron を停止（再開するときは ["*/5 * * * *"] に戻す）
 crons = []
 
+[vars]
+# 2026-08-18 サイト閉鎖: "1" の間は scheduled() が何もしない（cron 削除の伝播遅延対策）。復元時は削除
+SITE_CLOSED = "1"
+
 [[kv_namespaces]]
 binding = "LIVE_KV"
 # Cloudflare KV namespace: SHOWDOWN_LIVE_KV
