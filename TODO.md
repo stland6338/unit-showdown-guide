@@ -46,8 +46,9 @@
 ## Phase 6: 閉鎖（2026-08-18）
 - [x] `src/lib/config.ts` の `siteClosed: true` で全ページを「公開終了」案内に差し替え（ナビ非表示・OGP は summary・sitemap は `/` のみ・`public/_redirects` で旧ページ→`/`）
 - [x] `showdown-sentinel` / `showdown-live` の cron を `crons = []` で停止して再デプロイ（Worker 本体・KV・secrets は残置。`/api/live` は KV キャッシュを返すだけ）
+  - 注: API 上 schedule が空になっても `*/5` トリガーが 20 分以上発火し続けたため、両 Worker の `scheduled()` は `[vars] SITE_CLOSED = "1"` の間は何もしない（二重ガード）
 - [x] `.github/workflows/daily-deploy.yml` の毎朝 schedule を停止（push / workflow_dispatch は残す）
-- 復元手順: `siteClosed: false` → 両 toml の crons を戻す → `npx wrangler deploy -c wrangler-*.toml` → push
+- 復元手順: `siteClosed: false` → 両 toml の crons を戻し `SITE_CLOSED` を削除 → `npx wrangler deploy -c wrangler-*.toml` → push
 - 完全撤去する場合: `npx wrangler pages project delete unit-showdown-guide` / `npx wrangler delete -c wrangler-live.toml` / `npx wrangler delete -c wrangler-sentinel.toml` / KV 2 つ削除 / GitHub リポジトリをアーカイブ / GCP `unit-showdown-guide-2026` の API キー無効化
 
 ## 人間（とらんど）の承認が必要なもの
